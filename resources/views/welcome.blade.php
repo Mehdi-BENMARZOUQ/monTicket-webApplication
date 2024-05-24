@@ -2,7 +2,7 @@
 @include('navBar')
 
 
-    <div class="site-blocks-cover overlay" style="background-image: url(images/cover-pic.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+    <div class="site-blocks-cover overlay" style="background-image: url(/images/ticket_cover.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
         <div class="container">
             <div class="row align-items-center justify-content-center text-center">
 
@@ -187,7 +187,7 @@
         <div class="container">
             <div class="row justify-content-center mb-5">
                 <div class="col-md-7 text-center border-primary">
-                    <h2 class="font-weight-light text-primary">Most Visited Places</h2>
+                    <h2 class="font-weight-light text-primary">Last Added Places</h2>
                     <p class="color-black-opacity-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                 </div>
             </div>
@@ -295,8 +295,8 @@
     <div class="site-section">
         <div class="container">
             <div class="row">
-                <div class="col-md-6 mb-5">
-                    <img src="images/img_1.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid rounded">
+                <div class="col-md-6 mb-5" style="width: 540px;height: 450px">
+                    <img src="images/ticket_pic1.jpg" alt="Free Website Template by Free-Template.co" class="img-fluid rounded" style="width: 100%;height: 100%">
                 </div>
                 <div class="col-md-5 ml-auto">
                     <h2 class="text-primary mb-3">Why Us</h2>
@@ -499,7 +499,7 @@
         </div>
     </div>
 
-
+@guest
     <div class="py-5 bg-primary">
         <div class="container">
             <div class="row">
@@ -508,12 +508,12 @@
                     <p class="mb-0 text-white">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                 </div>
                 <div class="col-lg-4">
-                    <p class="mb-0"><a href="signup.html" class="btn btn-outline-white text-white btn-md px-5 font-weight-bold btn-md-block">Sign Up</a></p>
+                    <p class="mb-0"><a href="{{ route('login') }}" class="btn btn-outline-white text-white btn-md px-5 font-weight-bold btn-md-block">Sign Up</a></p>
                 </div>
             </div>
         </div>
     </div>
-
+@endguest
 @include('footer')
 
 <script>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EventCategoryController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/events/manage', [EventController::class, 'myList'])->name('events.myList');
 
+    Route::post('/favorites/{event}', [FavoriteController::class, 'store'])->name('favorites.store');
+    Route::delete('/favorites/{event}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+
 
 });
 // CRUD Routes
@@ -46,9 +50,7 @@ Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store
 Route::get('/events/category/{categoryName}', [EventController::class, 'eventsByCategory'])->name('events.byCategory');
 
 // Manage Event
-/*Route::get('/events/manage', function () {
-    return view('events/manageEvents');
-});*/
+
 
 // Admin-only routes
 Route::middleware(['auth:sanctum', 'verified', 'role'])->group(function () {

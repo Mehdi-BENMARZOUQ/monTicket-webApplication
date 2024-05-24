@@ -1,6 +1,39 @@
 @include('events.navbarbyCategory')
+<style>
+    .favorite-btn {
+        border: none;
+        background: none;
+        cursor: pointer;
+    }
 
-<div class="site-blocks-cover inner-page-cover overlay for-image-background" style="background-image: url(/images/img_1.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
+    .favorite-btn.not-favorited {
+        /*background: rgba(0, 0, 0, 0.1);*/
+        color: #f38181;
+        padding: 5px;
+        border-radius: 5px;
+        /*transition: background 0.3s, color 0.3s;*/
+    }
+
+    .favorite-btn.not-favorited .icon-heart {
+        /*color: #f38181;*/
+        color: #fff;
+    }
+
+    .favorite-btn.favorited {
+        /*background: rgba(0, 0, 0, 0.1);*/
+        color: #f38181;
+        padding: 5px;
+        border-radius: 5px;
+        /*transition: background 0.3s, color 0.3s;*/
+    }
+
+    .favorite-btn.favorited .icon-heart {
+        color: #f38181;
+    }
+</style>
+
+
+<div class="site-blocks-cover inner-page-cover overlay for-image-background" style="background-image: url(/images/{{ str_replace(' ', '', ($category->name)) }}_cover.jpg);" data-aos="fade" data-stellar-background-ratio="0.5">
     <div class="container">
         <div class="row align-items-center justify-content-center text-center">
 
@@ -28,21 +61,38 @@
 
 
                 @foreach($events as $event)
+                    @php
+                        $isFavorited = Auth::check() && Auth::user()->favorites->contains($event->id);
+                    @endphp
                     <div class="d-block d-md-flex listing-horizontal">
 
                         <a href="#" class="img d-block" style="background-image: url(/storage/{{ $event->image }})">
                             <span class="category">{{ ($event->creator->organization_name) != "" ? $event->creator->organization_name : "Unknown" }}</span>
                         </a>
 
+
+
+
                         <div class="lh-content">
-                            <a href="#" class="bookmark"><span class="icon-heart"></span></a>
+                            <a href="#" class="bookmark">
+                                @if($isFavorited)
+                                    <form action="{{ route('favorites.destroy', $event->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="favorite-btn favorited"><span class="icon-heart"></span></button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('favorites.store', $event->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        <button type="submit" class="favorite-btn not-favorited"><span class="icon-heart"></span></button>
+                                    </form>
+                                @endif
+                            </a>
                             <h3><a href="#">{{ $event->title }}</a></h3>
                             <p>{{ $event->venue }}</p>
                             <p>
                                 <span>{{ $event->start_datetime }} to {{ $event->end_datetime }}</span>
                             </p>
-
-
                         </div>
 
                     </div>
@@ -196,7 +246,7 @@
     </div>
 </div>
 
-
+@guest
 <div class="py-5 bg-primary">
     <div class="container">
         <div class="row">
@@ -210,6 +260,6 @@
         </div>
     </div>
 </div>
-
+@endguest
 
 @include('events.footerbyCategory')

@@ -23,4 +23,8 @@ class Event extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+    public function favoritedBy()
+    {
+        return $this->belongsToMany(User::class, 'favorites');
+    }
 }
