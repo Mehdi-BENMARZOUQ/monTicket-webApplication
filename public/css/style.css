@@ -6,7 +6,7 @@ Author URL: http://free-template.co.
 License: https://creativecommons.org/licenses/by/3.0/
 License URL: https://creativecommons.org/licenses/by/3.0/
 Site License URL: https://free-template.co/template-license/
-  
+
 Website:  https://free-template.co
 Facebook: https://www.facebook.com/FreeDashTemplate.co
 Twitter:  https://twitter.com/Free_Templateco
@@ -316,7 +316,7 @@ h1, h2, h3, h4, h5,
   margin-bottom: 0px;
   z-index: 1999;
   position: absolute;
-  top: 2rem;
+  /*top: 2rem;*/
   width: 100%; }
   .site-navbar.transparent {
     background: transparent; }

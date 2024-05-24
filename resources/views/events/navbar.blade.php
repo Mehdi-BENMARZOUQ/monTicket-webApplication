@@ -123,8 +123,11 @@
                                         {{ Auth::user()->name }}
                                     </span></a>
                                 <ul class="dropdown ">
+                                    @if( Auth::user()->role === 'admin' )
+                                        <li><a class="" href="{{route('dashboard')}}">Dashboard</a></li>
+                                    @endif
+                                    <li><a class="" href="/events/manage">My Events</a></li>
                                     <li><a class="" href="/user/profile">{{ __('Profile') }}</a></li>
-                                    <li><a class="" href="#">My Events</a></li>
                                     <li><form method="POST" action="{{ route('logout') }}" class="dropdown-item p-0 m-0">
                                             @csrf
                                             <button type="submit" class="btn btn-link w-100 text-left px-3 py-2">
@@ -144,4 +147,5 @@
 </div>
 
 </header>
+
 

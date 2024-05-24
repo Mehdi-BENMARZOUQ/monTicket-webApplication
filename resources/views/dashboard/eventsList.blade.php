@@ -200,7 +200,7 @@
 <x-app-layout>
     <div  style="margin-top: 3rem">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="text-align: center;font-size: 50px;">
-            {{ __('Events List') }}
+            {{ __('events List') }}
         </h2>
     </div>
     <!-- Right Content -->
@@ -232,7 +232,7 @@
                                     <th style="text-transform: uppercase;text-align: center">venue</th>
                                     <th style="text-transform: uppercase;text-align: center">Start and End</th>
                                     <th style="text-transform: uppercase;text-align: center">Show Tickets</th>
-                                    {{--<th style="text-transform: uppercase">send message</th>--}}
+
                                 </tr>
                                 </thead>
                                 <tbody>

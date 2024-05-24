@@ -16,12 +16,30 @@ use Illuminate\View\View;
 class EventController extends Controller
 {
 
-    public function displayList(Request $request){
+    public function displayList(Request $request)
+    {
         $events = Event::paginate(7);
+
         return view('dashboard.eventsList', compact('events'));
     }
 
 
+    public function myList(Request $request)
+    {
+        $userId = Auth::id();
+
+        $events = Event::where('created_by', $userId)->paginate(7);
+
+        return view('events.manageEvents', compact('events'));
+    }
+
+    public function eventsByCategory(Request $request, $categoryName)
+    {
+        $category = EventCategory::where('name', $categoryName)->firstOrFail();
+        $events = Event::where('category_id', $category->id)->paginate(6);
+
+        return view('events.eventsByCategory', compact('events', 'category'));
+    }
     public function create()
     {
         $categories = EventCategory::all();
@@ -40,6 +58,16 @@ class EventController extends Controller
             'image' => 'nullable|image',
         ]);
 
+        /*Testing by debbuging*/
+       /* if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            dd($imagePath); // Debugging line to check if the image path is correct
+        } else {
+            dd('No image uploaded'); // Debugging line to check if the image was not uploaded
+        }*/
+
+        $imagePath = $request->image ? $request->file('image')->store('public/images/upload') : null;
+
         $event = new Event([
             'title' => $request->title,
             'description' => $request->description,
@@ -47,7 +75,7 @@ class EventController extends Controller
             'venue' => $request->venue,
             'start_datetime' => $request->start_datetime,
             'end_datetime' => $request->end_datetime,
-            'image' => $request->image ? $request->file('image')->store('images') : null,
+            'image' => $imagePath ? str_replace('public/', '', $imagePath) : null,
             'created_by' => Auth::id(),
         ]);
 

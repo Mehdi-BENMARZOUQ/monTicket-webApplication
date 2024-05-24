@@ -16,6 +16,10 @@ use Illuminate\View\View;
 
 class TicketController extends Controller
 {
+
+
+
+
     public function create($event_id)
     {
         $event = Event::findOrFail($event_id);
@@ -42,6 +46,6 @@ class TicketController extends Controller
             ]);
         }
 
-        return redirect()->route('events.index')->with('success', 'Tickets created successfully.');
+        return redirect()->route('events.manageEvents')->with('success', 'Tickets created successfully.');
     }
 }

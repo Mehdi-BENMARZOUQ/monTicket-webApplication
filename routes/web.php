@@ -22,15 +22,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/userList', [UserController::class, 'displayList'])->name('user.list');
     Route::get('/eventsList', [EventController::class, 'displayList'])->name('events.list');
-});
 
+    Route::get('/events/manage', [EventController::class, 'myList'])->name('events.myList');
+
+
+});
 // CRUD Routes
 // Users
 Route::get('/users/{id}', [UserController::class, 'show']);
 Route::put('/users/{id}', [UserController::class, 'update']);
 Route::delete('/users/{id}', [UserController::class, 'delete'])->name('users.delete');
 
-// Events
+// events
 Route::get('/events/create', [EventController::class, 'create'])->name('events.create');
 Route::post('/events', [EventController::class, 'store'])->name('events.store');
 Route::get('/event-categories', [EventCategoryController::class, 'index'])->name('event_categories.index');
@@ -40,17 +43,12 @@ Route::get('/tickets/create/{event_id}', [TicketController::class, 'create'])->n
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 
 // Event Lists
-Route::get('/music', function () {
-    return view('list/music');
-});
-Route::get('/festivals', function () {
-    return view('list/festivals');
-});
+Route::get('/events/category/{categoryName}', [EventController::class, 'eventsByCategory'])->name('events.byCategory');
 
 // Manage Event
-Route::get('/events/manage', function () {
+/*Route::get('/events/manage', function () {
     return view('events/manageEvents');
-});
+});*/
 
 // Admin-only routes
 Route::middleware(['auth:sanctum', 'verified', 'role'])->group(function () {
