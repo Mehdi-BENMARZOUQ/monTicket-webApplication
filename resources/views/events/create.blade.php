@@ -135,6 +135,24 @@
             </div>
 
             <div class="form-group">
+                <label for="location">Location:</label>
+                <select name="location" id="location" class="form-control">
+                    <option value="">Select a location</option>
+                    <option value="Casablanca">Casablanca</option>
+                    <option value="Rabat">Rabat</option>
+                    <option value="Fes">Fes</option>
+                    <option value="Marrakech">Marrakech</option>
+                    <option value="Tangier">Tangier</option>
+                    <option value="Agadir">Agadir</option>
+                    <option value="Meknes">Meknes</option>
+                    <option value="Oujda">Oujda</option>
+                    <option value="Kenitra">Kenitra</option>
+                </select>
+            </div>
+
+
+
+            <div class="form-group">
                 <label for="start_datetime">Start Date and Time:</label>
                 <input type="datetime-local" name="start_datetime" id="start_datetime" class="form-control" value="{{ old('start_datetime') }}">
             </div>

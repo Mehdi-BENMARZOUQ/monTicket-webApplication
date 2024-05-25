@@ -49,6 +49,6 @@ class TicketController extends Controller
             ]);
         }
 
-        return redirect()->route('events.manageEvents')->with('success', 'Tickets created successfully.');
+        return redirect()->route('events.myList')->with('success', 'Tickets created successfully.');
     }
 }

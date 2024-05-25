@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('event_categories');
+            $table->foreign('category_id')->references('id')->on('event_categories')->onDelete('cascade');
             $table->string('venue');
+            $table->string('location')->nullable();
             $table->dateTime('start_datetime');
             $table->dateTime('end_datetime');
             $table->string('image')->nullable();
             $table->unsignedBigInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

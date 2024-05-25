@@ -55,7 +55,8 @@ Route::get('/events/category/{categoryName}', [EventController::class, 'eventsBy
 // Event Show
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
 
-
+// Event Search
+Route::get('/search', [EventController::class, 'search'])->name('events.search');
 
 // Admin-only routes
 Route::middleware(['auth:sanctum', 'verified', 'role'])->group(function () {

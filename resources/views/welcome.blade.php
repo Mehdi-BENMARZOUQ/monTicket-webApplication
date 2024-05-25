@@ -17,40 +17,52 @@
                     </div>
 
                     <div class="form-search-wrap p-2" data-aos="fade-up" data-aos-delay="200">
-                        <form method="post">
+                        <form method="GET" action="{{ route('events.search') }}">
                             <div class="row align-items-center">
                                 <div class="col-lg-12 col-xl-4 no-sm-border border-right">
-                                    <input type="text" class="form-control" placeholder="What are you looking for?">
+                                    Where are you searching?
                                 </div>
                                 <div class="col-lg-12 col-xl-3 no-sm-border border-right">
                                     <div class="wrap-icon">
                                         <span class="icon icon-room"></span>
-                                        <input type="text" class="form-control" placeholder="Location">
+                                        <select class="form-control" name="location" required>
+                                            <option value="" disabled selected>Select Location</option>
+                                            <option value="Casablanca">Casablanca</option>
+                                            <option value="Rabat">Rabat</option>
+                                            <option value="Marrakech">Marrakech</option>
+                                            <option value="Fes">Fes</option>
+                                            <option value="Tangier">Tangier</option>
+                                            <option value="Agadir">Agadir</option>
+                                            <option value="Oujda">Oujda</option>
+                                            <option value="Kenitra">Kenitra</option>
+                                            <option value="Tetouan">Tetouan</option>
+                                            <option value="Safi">Safi</option>
+                                        </select>
                                     </div>
-
                                 </div>
                                 <div class="col-lg-12 col-xl-3">
                                     <div class="select-wrap">
                                         <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
-                                        <select class="form-control" name="" id="">
-                                            <option value="">MUSIC</option>
-                                            <option value="">PERFORMING & VISUAL ARTS</option>
-                                            <option value="">TRIPS</option>
-                                            <option value="">HEALTH</option>
-                                            <option value="">VIDEO GAMES</option>
-                                            <option value="">SEMINAR</option>
-                                            <option value="">FOOD & DRINK</option>
-                                            <option value="">FESTIVALS</option>
+                                        <select class="form-control" name="category" required>
+                                            <option value="" disabled selected>Select Category</option>
+                                            <option value="MUSIC">MUSIC</option>
+                                            <option value="PERFORMING & VISUAL ARTS">PERFORMING & VISUAL ARTS</option>
+                                            <option value="TRIPS">TRIPS</option>
+                                            <option value="HEALTH">HEALTH</option>
+                                            <option value="VIDEO GAMES">VIDEO GAMES</option>
+                                            <option value="SEMINAR">SEMINAR</option>
+                                            <option value="FOOD & DRINK">FOOD & DRINK</option>
+                                            <option value="FESTIVALS">FESTIVALS</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-2 ml-auto text-right">
                                     <input type="submit" class="btn text-white btn-primary" value="Search">
                                 </div>
-
                             </div>
                         </form>
                     </div>
+
 
                 </div>
             </div>

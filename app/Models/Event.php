@@ -10,7 +10,7 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'category_id', 'venue', 'start_datetime',
+        'title', 'description', 'category_id', 'venue','location', 'start_datetime',
         'end_datetime', 'image', 'created_by',
     ];
 
@@ -18,6 +18,7 @@ class Event extends Model
     {
         return $this->belongsTo(EventCategory::class, 'category_id');
     }
+
 
     public function creator()
     {

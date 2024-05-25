@@ -46,7 +46,13 @@ class EventController extends Controller
         $categories = EventCategory::all();
         return view('events.create', compact('categories'));
     }
-
+    /*Testing by debbuging*/
+    /* if ($request->hasFile('image')) {
+         $imagePath = $request->file('image')->store('images', 'public');
+         dd($imagePath); // Debugging line to check if the image path is correct
+     } else {
+         dd('No image uploaded'); // Debugging line to check if the image was not uploaded
+     }*/
     public function store(Request $request)
     {
         $request->validate([
@@ -54,18 +60,11 @@ class EventController extends Controller
             'description' => 'required|string',
             'category_id' => 'required|exists:event_categories,id',
             'venue' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
             'start_datetime' => 'required|date',
             'end_datetime' => 'required|date',
             'image' => 'nullable|image',
         ]);
-
-        /*Testing by debbuging*/
-       /* if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            dd($imagePath); // Debugging line to check if the image path is correct
-        } else {
-            dd('No image uploaded'); // Debugging line to check if the image was not uploaded
-        }*/
 
         $imagePath = $request->image ? $request->file('image')->store('public/images/upload') : null;
 
@@ -74,6 +73,7 @@ class EventController extends Controller
             'description' => $request->description,
             'category_id' => $request->category_id,
             'venue' => $request->venue,
+            'location' => $request->location,
             'start_datetime' => $request->start_datetime,
             'end_datetime' => $request->end_datetime,
             'image' => $imagePath ? str_replace('public/', '', $imagePath) : null,
@@ -91,5 +91,24 @@ class EventController extends Controller
         $moreEvents = Event::where('id', '!=', $id)->take(4)->get();
         $tickets = Ticket::where('id', $id)->get();
         return view('single.single', compact('event', 'moreEvents','tickets'));
+    }
+
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'location' => 'required|string',
+            'category' => 'required|string',
+        ]);
+
+        $events = Event::where('location', $request->location)
+            ->whereHas('category', function($query) use ($request) {
+                $query->where('name', $request->category);
+            })
+            ->paginate(6);
+
+        $category = EventCategory::where('name', $request->category)->firstOrFail();
+
+        return view('events.index', compact('events','category'));
     }
 }
