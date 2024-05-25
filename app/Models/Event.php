@@ -10,7 +10,7 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title', 'description', 'category_id', 'venue','location', 'start_datetime',
+        'title', 'description', 'category_id', 'venue','location',   'start_datetime',
         'end_datetime', 'image', 'created_by',
     ];
 
@@ -24,11 +24,14 @@ class Event extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
-    public function event()
+    /*public function event()
     {
         return $this->belongsTo(Event::class);
+    }*/
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'favorites', 'event_id', 'user_id');
     }
-
     public function tickets()
     {
         return $this->hasMany(Ticket::class);

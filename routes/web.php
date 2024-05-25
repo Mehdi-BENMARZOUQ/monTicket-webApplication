@@ -11,9 +11,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
 // Home route
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-})->name('welcome');
+})->name('welcome');*/
+
+
+Route::get('/', [EventController::class, 'displayWelcomeList'])->name('welcome');
 
 // Authenticated and verified user routes
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -26,10 +29,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::get('/events/manage', [EventController::class, 'myList'])->name('events.myList');
 
+    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+
     Route::post('/favorites/{event}', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('/favorites/{event}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
-    Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
 
 
 });
@@ -58,6 +62,9 @@ Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show'
 // Event Search
 Route::get('/search', [EventController::class, 'search'])->name('events.search');
 
+// Event Welcome List
+
+
 // Admin-only routes
 Route::middleware(['auth:sanctum', 'verified', 'role'])->group(function () {
     Route::get('/userList', [UserController::class, 'displayList'])->name('users.list');
@@ -72,9 +79,13 @@ Route::middleware(['auth:sanctum', 'verified', 'role'])->group(function () {
 });
 
 // Email verification routes (using Jetstream)
-Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
+/*Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
     return view('welcome');
-})->name('welcome');
+})->name('welcome');*/
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/', [EventController::class, 'displayWelcomeList'])->name('welcome');
+
+
 
 // Email verification notice
 Route::get('/email/verify', function () {

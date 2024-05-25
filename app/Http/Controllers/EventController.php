@@ -24,6 +24,12 @@ class EventController extends Controller
         return view('dashboard.eventsList', compact('events'));
     }
 
+    public function displayWelcomeList(Request $request)
+    {
+        $events = Event::latest()->take(6)->get();
+        return view('welcome', compact('events'));
+    }
+
 
     public function myList(Request $request)
     {

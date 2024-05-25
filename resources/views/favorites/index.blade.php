@@ -236,16 +236,16 @@
         @else
             @foreach($favoriteEvents as $favorite)
                 <div class="rounded-lg bg-white shadow-lg">
-                    <img alt="Event Image" class="h-250 w-full rounded-t-lg object-cover object-center" src="/storage/{{ $favorite->event->image }}" width="400" height="250">
+                    <img alt="Event Image" class="h-250 w-full rounded-t-lg object-cover object-center" src="/storage/{{ $favorite->image }}" width="400" height="250">
                     <div class="p-4">
-                        <h3 class="text-xl font-bold text-f38181"><a href="{{ route('events.show', $favorite->event->id) }}">{{ $favorite->event->title }}</a></h3>
-                        <p class="text-gray-500">Organized by {{ $favorite->user->organization_name }}</p>
-                        <p class="mt-2 text-gray-700">{{ $favorite->event->description }}</p>
+                        <h3 class="text-xl font-bold text-f38181"><a href="{{ route('events.show', $favorite->id) }}">{{ $favorite->title }}</a></h3>
+                        <p class="text-gray-500">Organized by {{ $favorite->organization_name }}</p>
+                        <p class="mt-2 text-gray-700">{{ $favorite->description }}</p>
                         <div class="mt-4 flex items-center justify-between">
-                            <span class="rounded-full bg-f38181 px-3 py-1 text-sm text-white">Music</span>
+                            <span class="rounded-full bg-f38181 px-3 py-1 text-sm text-white">{{$favorite->category->name}}</span>
                             <div class="space-x-2">
-                                <span class="text-gray-500">{{ $favorite->event->start_datetime }}</span>
-                                <span class="text-gray-500">- {{ $favorite->event->end_datetime }}</span>
+                                <span class="text-gray-500">{{ $favorite->start_datetime }}</span>
+                                <span class="text-gray-500">- {{ $favorite->end_datetime }}</span>
                             </div>
                         </div>
                     </div>

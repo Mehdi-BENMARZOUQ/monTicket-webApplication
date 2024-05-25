@@ -8,12 +8,20 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
-    public function index()
+    /*public function index()
     {
         $user = Auth::user();
         $favoriteEvents = $user->favorites()->with('event')->get();
         return view('favorites.index', compact('favoriteEvents'));
+    }*/
+
+    public function index()
+    {
+        $user = Auth::user();
+        $favoriteEvents = $user->events()->with('category')->get();
+        return view('favorites.index', compact('favoriteEvents'));
     }
+
     public function store(Request $request, $eventId)
     {
         $user = Auth::user();

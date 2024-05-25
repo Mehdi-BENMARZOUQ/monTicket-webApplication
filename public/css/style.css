@@ -1797,3 +1797,35 @@ h1, h2, h3, h4, h5,
         .comment-list li .comment-body .reply:hover {
           color: #000;
           background: #e3e3e3; }
+
+
+.favorite-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.favorite-btn.not-favorited {
+    /*background: rgba(0, 0, 0, 0.1);*/
+    color: #f38181;
+    padding: 5px;
+    border-radius: 5px;
+    /*transition: background 0.3s, color 0.3s;*/
+}
+
+.favorite-btn.not-favorited .icon-heart {
+    /*color: #f38181;*/
+    color: #fff;
+}
+
+.favorite-btn.favorited {
+    /*background: rgba(0, 0, 0, 0.1);*/
+    color: #f38181;
+    padding: 5px;
+    border-radius: 5px;
+    /*transition: background 0.3s, color 0.3s;*/
+}
+
+.favorite-btn.favorited .icon-heart {
+    color: #f38181;
+}

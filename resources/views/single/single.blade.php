@@ -122,7 +122,7 @@
 
                 @foreach($moreEvents as $myevent)
                     @php
-                        $isFavorited = Auth::check() && Auth::user()->favorites->contains($event->id);
+                        $isFavorited = Auth::check() && Auth::user()->favorites->contains($myevent ->id);
                     @endphp
                     <div class="d-block d-md-flex listing-horizontal">
 
