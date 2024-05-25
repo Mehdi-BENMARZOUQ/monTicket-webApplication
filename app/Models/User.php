@@ -71,6 +71,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function favorites()
     {
-        return $this->belongsToMany(Event::class, 'favorites');
+        return $this->hasMany(Favorite::class);
     }
 }
