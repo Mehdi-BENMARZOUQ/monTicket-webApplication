@@ -33,7 +33,6 @@
                                     <div class="select-wrap">
                                         <span class="icon"><span class="icon-keyboard_arrow_down"></span></span>
                                         <select class="form-control" name="" id="">
-                                            <option value="">All Categories</option>
                                             <option value="">MUSIC</option>
                                             <option value="">PERFORMING & VISUAL ARTS</option>
                                             <option value="">TRIPS</option>

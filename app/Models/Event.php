@@ -27,4 +27,9 @@ class Event extends Model
     {
         return $this->belongsTo(Event::class);
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }

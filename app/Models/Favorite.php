@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Favorite extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'user_id', 'event_id',
     ];
 
-    public function event()
+    public function events()
     {
-        return $this->belongsTo(Event::class);
+        return $this->belongsToMany(Event::class, 'favorites', 'user_id', 'event_id');
     }
 
     public function user()

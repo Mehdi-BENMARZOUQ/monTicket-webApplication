@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Event;
 use App\Models\EventCategory;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -82,5 +83,13 @@ class EventController extends Controller
         $event->save();
 
         return redirect()->route('tickets.create', ['event_id' => $event->id])->with('success', 'Event created successfully.');
+    }
+
+    public function show($id)
+    {
+        $event = Event::findOrFail($id);
+        $moreEvents = Event::where('id', '!=', $id)->take(4)->get();
+        $tickets = Ticket::where('id', $id)->get();
+        return view('single.single', compact('event', 'moreEvents','tickets'));
     }
 }

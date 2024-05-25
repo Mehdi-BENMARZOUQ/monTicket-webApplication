@@ -20,6 +20,9 @@ class TicketController extends Controller
 
 
 
+
+
+
     public function create($event_id)
     {
         $event = Event::findOrFail($event_id);

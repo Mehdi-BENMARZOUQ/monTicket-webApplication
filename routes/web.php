@@ -28,6 +28,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
     Route::post('/favorites/{event}', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('/favorites/{event}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
+
     Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
 
 
@@ -50,7 +51,10 @@ Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store
 // Event Lists
 Route::get('/events/category/{categoryName}', [EventController::class, 'eventsByCategory'])->name('events.byCategory');
 
-// Manage Event
+
+// Event Show
+Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
+
 
 
 // Admin-only routes

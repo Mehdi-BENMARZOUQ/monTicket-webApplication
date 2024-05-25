@@ -14,8 +14,6 @@ class FavoriteController extends Controller
         $favoriteEvents = $user->favorites()->with('event')->get();
         return view('favorites.index', compact('favoriteEvents'));
     }
-
-
     public function store(Request $request, $eventId)
     {
         $user = Auth::user();
@@ -25,7 +23,7 @@ class FavoriteController extends Controller
             return back()->with('error', 'Event already in favorites.');
         }
 
-        $user->favorites()->attach($eventId);
+        $user->events()->attach($eventId);
 
         return back()->with('success', 'Event added to favorites.');
     }
@@ -33,8 +31,9 @@ class FavoriteController extends Controller
     public function destroy(Request $request, $eventId)
     {
         $user = Auth::user();
-        $user->favorites()->detach($eventId);
+        $user->events()->detach($eventId);
 
         return back()->with('success', 'Event removed from favorites.');
     }
+
 }

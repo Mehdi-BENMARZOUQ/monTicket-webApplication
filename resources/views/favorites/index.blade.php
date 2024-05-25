@@ -1,15 +1,6 @@
 @include('events.navbarbyCategory')
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Caudex&family=Taviraj&display=swap');
 
-    :root {
-        --font-caudex: 'Caudex', serif;
-        --font-taviraj: 'Taviraj', serif;
-    }
-
-    body {
-        font-family: var(--font-caudex), var(--font-taviraj);
-    }
 
     .caudex {
         font-family: var(--font-caudex);
@@ -247,7 +238,7 @@
                 <div class="rounded-lg bg-white shadow-lg">
                     <img alt="Event Image" class="h-250 w-full rounded-t-lg object-cover object-center" src="/storage/{{ $favorite->event->image }}" width="400" height="250">
                     <div class="p-4">
-                        <h3 class="text-xl font-bold text-f38181"><a href="">{{ $favorite->event->title }}</a></h3>
+                        <h3 class="text-xl font-bold text-f38181"><a href="{{ route('events.show', $favorite->event->id) }}">{{ $favorite->event->title }}</a></h3>
                         <p class="text-gray-500">Organized by {{ $favorite->user->organization_name }}</p>
                         <p class="mt-2 text-gray-700">{{ $favorite->event->description }}</p>
                         <div class="mt-4 flex items-center justify-between">
