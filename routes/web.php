@@ -6,6 +6,8 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
+use App\Livewire\Profile\SwitchToBuyerForm;
+use App\Livewire\Profile\SwitchToOrganizerForm;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -48,6 +50,12 @@ Route::get('/events/create', [EventController::class, 'create'])->name('events.c
 Route::post('/events', [EventController::class, 'store'])->name('events.store');
 Route::get('/event-categories', [EventCategoryController::class, 'index'])->name('event_categories.index');
 
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/events/create', [EventController::class, 'create'])->name('events.create')->middleware('event_organizer');
+
+});
+
+
 // Tickets
 Route::get('/tickets/create/{event_id}', [TicketController::class, 'create'])->name('tickets.create');
 Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
@@ -62,7 +70,8 @@ Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show'
 // Event Search
 Route::get('/search', [EventController::class, 'search'])->name('events.search');
 
-// Event Welcome List
+// Switch to organizer
+Route::middleware(['auth:sanctum', 'verified'])->get('/switch-to-organizer', SwitchToOrganizerForm::class)->name('switch-to-organizer');
 
 
 // Admin-only routes

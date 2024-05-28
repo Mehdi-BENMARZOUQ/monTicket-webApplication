@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -26,8 +27,20 @@ class EventController extends Controller
 
     public function displayWelcomeList(Request $request)
     {
-        $events = Event::latest()->take(6)->get();
-        return view('welcome', compact('events'));
+        // Retrieve the count of events for each category
+        $categoryCounts = DB::table('events')
+            ->join('event_categories', 'events.category_id', '=', 'event_categories.id')
+            ->select('event_categories.name', DB::raw('COUNT(*) as count'))
+            ->groupBy('event_categories.name')
+            ->get();
+
+        // Retrieve the events (assuming you want to display all events)
+        $events = Event::paginate(7);
+
+        // Create a map of category names to their respective event counts
+        $categoryCountsMap = $categoryCounts->pluck('count', 'name');
+
+        return view('welcome', compact('events','categoryCountsMap'));
     }
 
 
@@ -93,9 +106,10 @@ class EventController extends Controller
 
     public function show($id)
     {
+
         $event = Event::findOrFail($id);
         $moreEvents = Event::where('id', '!=', $id)->take(4)->get();
-        $tickets = Ticket::where('id', $id)->get();
+        $tickets = Ticket::where('event_id', $id)->get();
         return view('single.single', compact('event', 'moreEvents','tickets'));
     }
 

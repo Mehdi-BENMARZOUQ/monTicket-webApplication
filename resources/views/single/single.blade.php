@@ -165,6 +165,7 @@
 
                 <div class="card">
                     <div class="card-header">
+                        <img src="/storage/{{ Auth::user()->organization_logo }}" alt="">
                         <div style="display: flex;align-items: center;justify-content: center;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
@@ -174,9 +175,10 @@
                             </svg>
                             <h2 style="font-size: 25px;margin: 0;">Get Your Ticket</h2>
                         </div>
+
                         <div>
                             <h3>{{ $event->title }}</h3>
-                            <p>{{ $myevent->start_datetime }}</p>
+                            <p>{{ $event->start_datetime }}</p>
                         </div>
                     </div>
                     <div class="card-content">

@@ -80,8 +80,9 @@
             </div>
 
             <div class="row align-items-stretch" id="first-row">
+                @foreach ($categoryCountsMap as $categoryName => $count)
                 <div class="col-6 col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
-                    <a href="{{ route('events.byCategory', 'MUSIC') }}" class="popular-category h-100">
+                    <a href="{{ route('events.byCategory', $categoryName) }}" class="popular-category h-100">
                         <span class="icon mb-3">
                             <svg width="50" height="50" fill="none" viewBox="0 0 40 41">
                                 <g id="mic_svg__icon_selection">
@@ -89,10 +90,11 @@
                                 </g>
                             </svg>
                         </span>
-                        <span class="caption mb-2 d-block">Music</span>
-                        <span class="number">4,89</span>
+                        <span class="caption mb-2 d-block">{{ strtoupper($categoryName) }}</span>
+                        <span class="number">{{ $count }}</span>
                     </a>
                 </div>
+                @endforeach
                 <div class="col-6 col-sm-6 col-md-4 mb-4 mb-lg-0 col-lg-2">
                     <a href="{{ route('events.byCategory', 'PERFORMING & VISUAL ARTS') }}" class="popular-category h-100">
                         <span class="icon mb-3">
@@ -152,7 +154,7 @@
                             </svg>
                         </span>
                         <span class="caption mb-2 d-block">SEMINAR</span>
-                        <span class="number">692</span>
+                        <span class="number">152</span>
                     </a>
                 </div>
 

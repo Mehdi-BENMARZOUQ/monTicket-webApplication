@@ -1,7 +1,7 @@
 
 @php
     $currentUrl = request()->path();
-    $isActiveManage = $currentUrl === 'events/manage';
+    $isActiveManage = $currentUrl === 'events/create';
     $isActiveOrders = $currentUrl === 'events/orders';
     $isActiveFavorite = $currentUrl === 'events/favorite';
 
@@ -102,7 +102,7 @@
         </a>
 
         <div class="col-8">
-            <a href="/events/manage" class="{{$classesManage}}" style="height: 100%;margin:0 20px;">Events</a>
+            <a href="/events/create" class="{{$classesManage}}" style="height: 100%;margin:0 20px;">Events</a>
             <a href="/events/manage" class="{{$classesOrders}}" style="height: 100%;margin:0 20px;">Orders</a>
             <a href="/events/manage" class="{{$classesFavorite}}" style="height: 100%;margin:0 20px;">Favorite</a>
         </div>
