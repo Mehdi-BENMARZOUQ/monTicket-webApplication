@@ -243,9 +243,10 @@
                         <p class="mt-2 text-gray-700">{{ $favorite->description }}</p>
                         <div class="mt-4 flex items-center justify-between">
                             <span class="rounded-full bg-f38181 px-3 py-1 text-sm text-white">{{$favorite->category->name}}</span>
-                            <div class="space-x-2">
-                                <span class="text-gray-500">{{ $favorite->start_datetime }}</span>
-                                <span class="text-gray-500">- {{ $favorite->end_datetime }}</span>
+                            <div class="">
+                                <span class="text-gray-500">{{ date('d-M-Y',strtotime($favorite->start_datetime)) }}</span>
+                                <br>
+                                <span class="text-gray-500">{{ date('d-M-Y',strtotime($favorite->end_datetime)) }}</span>
                             </div>
                         </div>
                     </div>

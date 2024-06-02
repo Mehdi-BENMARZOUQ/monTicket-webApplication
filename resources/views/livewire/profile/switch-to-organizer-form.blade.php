@@ -1,3 +1,5 @@
+
+
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
 
@@ -11,14 +13,14 @@
         </div>
     @endif
 
-        @if (Auth::user()->role == 'event_organizer'|| AUTH::user->role == 'admin')
+     {{--   @if (Auth::user()->role == 'event_organizer'|| AUTH::user->role == 'admin')
             <a href="{{ route('events.create') }}" class="text-sm text-gray-700 underline d-flex">
                 <p>
                     Create event
                 </p>
 
             </a>
-        @endif
+        @endif--}}
 
     Add Organization Details
 

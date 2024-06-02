@@ -95,26 +95,26 @@
 </style>
 <div class="create-form">
     <div class="container">
-        <h1 style="font-weight: 600">Build your event page</h1>
-        <p style="color: #5c6676">Add all of your event details and let attendees know what to expect</p>
+        <h1 style="font-weight: 600;font-size: 60px;margin: 18px 0;">Build your event page</h1>
+        <p style="color: #5c6676;margin-bottom: 12px">Add all of your event details and let attendees know what to expect</p>
 
         <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group" style="display: flex;justify-content: center">
                 <div class="image-upload-wrapper" id="imageWrapper" style="background-image: url('https://via.placeholder.com/800x300');">
-                    <input type="file" name="image" id="image" class="form-control">
+                    <input type="file" name="image" id="image" class="form-control" required>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="title">Title:</label>
-                <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}">
+                <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
             </div>
 
             <div class="form-group">
                 <label for="description">Description:</label>
-                <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+                <textarea name="description" id="description" class="form-control" required>{{ old('description') }}</textarea>
             </div>
 
             <div class="form-group custom-select" style="background: none;padding: 0;border: none;display: flex">
@@ -126,17 +126,17 @@
                         @endforeach
                     </div>
                 </div>
-                <input type="hidden" id="category_id" name="category_id">
+                <input type="hidden" id="category_id" name="category_id" required>
             </div>
 
             <div class="form-group">
                 <label for="venue">Venue:</label>
-                <input type="text" name="venue" id="venue" class="form-control" value="{{ old('venue') }}">
+                <input type="text" name="venue" id="venue" class="form-control" value="{{ old('venue') }}" required>
             </div>
 
             <div class="form-group">
                 <label for="location">Location:</label>
-                <select name="location" id="location" class="form-control">
+                <select name="location" id="location" class="form-control" required>
                     <option value="">Select a location</option>
                     <option value="Casablanca">Casablanca</option>
                     <option value="Rabat">Rabat</option>
@@ -154,12 +154,12 @@
 
             <div class="form-group">
                 <label for="start_datetime">Start Date and Time:</label>
-                <input type="datetime-local" name="start_datetime" id="start_datetime" class="form-control" value="{{ old('start_datetime') }}">
+                <input type="datetime-local" name="start_datetime" id="start_datetime" class="form-control" value="{{ \Carbon\Carbon::parse(old('start_datetime'))->format('Y-m-d') }}">
             </div>
 
             <div class="form-group">
                 <label for="end_datetime">End Date and Time:</label>
-                <input type="datetime-local" name="end_datetime" id="end_datetime" class="form-control" value="{{ old('end_datetime') }}">
+                <input type="datetime-local" name="end_datetime" id="end_datetime" class="form-control" value="{{ \Carbon\Carbon::parse(old('end_datetime'))->format('Y-m-d') }}">
             </div>
 
             <button type="submit" class="btn btn-block btn-outline-primary btn-md px-5">Save and Continue</button>
@@ -196,10 +196,108 @@
         });
     });
 
+    document.getElementById('image').addEventListener('change', function(event) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var modal = document.getElementById('cropperModal');
+            var image = document.getElementById('imageCropper');
+            image.src = e.target.result;
+            modal.style.display = 'block';
+
+            var cropper = new Cropper(image, {
+                aspectRatio: 428 / 248,
+                viewMode: 1
+            });
+
+            document.getElementById('cropImage').addEventListener('click', function() {
+                var canvas = cropper.getCroppedCanvas({
+                    width: 428,
+                    height: 248
+                });
+                canvas.toBlob(function(blob) {
+                    var url = URL.createObjectURL(blob);
+                    document.getElementById('imageWrapper').style.backgroundImage = 'url(' + url + ')';
+                    modal.style.display = 'none';
+                    cropper.destroy();
+
+                    // Append the blob to a new FormData object and submit it if needed
+                    var formData = new FormData();
+                    formData.append('image', blob, 'cropped.jpg');
+                    // You can then submit the formData using AJAX if needed
+                });
+            });
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
+    $(document).ready(function() {
+        $(".option").click(function() {
+            // Remove the 'selected' class from all options
+            $(".option").removeClass("selected");
+
+            // Add the 'selected' class to the clicked option
+            $(this).addClass("selected");
+
+            // Set the selected option's value in the hidden input field
+            var value = $(this).data("value");
+            $(this).closest(".select-wrapper").siblings("input[type=hidden]").val(value);
+
+            // Optionally, you can also update the displayed text to reflect the selected option
+            var text = $(this).text();
+            $(this).closest(".select-wrapper").find(".selected-option").text(text);
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () { $("#start_datetime, #end_datetime").on("change", function() {
+        var startDate = new Date($("#start_datetime").val());
+        var endDate = new Date($("#end_datetime").val());
+        var currentDate = new Date();
+
+        if (startDate <= currentDate.setDate(currentDate.getDate() + 1)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Date',
+                text: 'Start date should be at least 2 days from today.',
+            });
+            $(this).val('');
+        } else if (startDate >= endDate) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Date Range',
+                text: 'End date should be greater than start date.',
+            });
+            $(this).val('');
+        }
+    });
+
+        $('.form-group label')(
+            function() {
+                var text = $(this).text();
+                var rules;
+                switch (text) {
+                    case 'Start Date and Time:':
+                        rules = 'Start date should be at least 2 days from today.';
+                        break;
+                    case 'End Date and Time:':
+                        rules = 'End date should be greater than start date.';
+                        break;
+                    default:
+                        rules = '';
+                }
+                if (rules !== '') {
+                    Swal.fire({
+                        title: 'Rules',
+                        text: rules,
+                        icon: 'info',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            },
+            function() {
+                Swal.close();
+            }
+        );
+    });
 </script>
 
-   {{-- <svg width="150" xmlns="http://www.w3.org/2000/svg">
-        <g>
-            <path transform="rotate(90 75.6898 514.471)" stroke="null" id="svg_1" d="m-460.46403,560.95014l35.74359,-15.44663c35.74359,-15.44663 107.23077,-46.33989 178.71794,-72.11645c71.48718,-25.3904 142.97436,-46.62951 214.46153,-30.89326c71.48718,15.157 142.97436,67.28938 214.46153,82.44638c71.48718,15.73625 142.97436,-5.50286 214.46153,0c71.48718,5.1167 142.97436,36.00995 178.71794,51.45658l35.74359,15.44663l0,0l-35.74359,0c-35.74359,0 -107.23077,0 -178.71794,0c-71.48718,0 -142.97436,0 -214.46153,0c-71.48718,0 -142.97436,0 -214.46153,0c-71.48718,0 -142.97436,0 -214.46153,0c-71.48718,0 -142.97436,0 -178.71794,0l-35.74359,0l0,-30.89326z" fill="#f3f4f5"/>
-        </g>
-    </svg>--}}
+

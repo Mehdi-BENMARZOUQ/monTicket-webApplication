@@ -226,6 +226,7 @@
                                 <thead style="border-bottom: 1px solid #0000005c;">
                                 <tr>
                                     <th style="text-transform: uppercase;text-align: center">ID</th>
+                                    <th style="text-transform: uppercase;text-align: center">Organized By</th>
                                     <th style="text-transform: uppercase;text-align: center">title</th>
                                     <th style="text-transform: uppercase;text-align: center">description</th>
                                     <th style="text-transform: uppercase;text-align: center">Category</th>
@@ -239,13 +240,14 @@
                                 @foreach($events as $event)
                                     <tr>
                                         <td style="text-align: center" class="id">{{ $event->id }}</td>
+                                        <td style="text-align: center">{{ $event->creator->name }} </td>
                                         <td style="text-align: center">{{ $event->title }} </td>
                                         <td style="text-align: center">{{ $event->description }}</td>
                                         <td style="color: #f38181;font-weight: 600;text-align: center">{{ $event->category->name}}</td>
                                         <td style="text-align: center">{{ $event->venue }}</td>
-                                        <td style="text-align: center">{{ $event->start_datetime }}
+                                        <td style="text-align: center">{{ date('d-M-Y',strtotime($event->start_datetime)) }}
                                             <br>
-                                            {{ $event->end_datetime }}
+                                            {{ date('d-M-Y',strtotime($event->end_datetime)) }}
                                         </td>
                                         <td>
                                             <div style="display: flex;font-weight: 600;color: #f38181;align-items: center">

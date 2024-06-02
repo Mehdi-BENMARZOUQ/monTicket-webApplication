@@ -18,7 +18,48 @@ class TicketController extends Controller
 {
 
 
+    public function update(Request $request, $eventId)
+    {
+        $event = Event::find($eventId);
 
+        if (!$event || Auth::id() !== $event->user_id) {
+            return redirect()->route('events.myList');
+        }
+
+        $request->validate([
+            'tickets.*.type' => 'required|string|max:255',
+            'tickets.*.price' => 'required|numeric|min:0',
+            'tickets.*.quantity' => 'required|integer|min:0',
+            'newTickets.*.type' => 'nullable|string|max:255',
+            'newTickets.*.price' => 'nullable|numeric|min:0',
+            'newTickets.*.quantity' => 'nullable|integer|min:0',
+        ]);
+
+        foreach ($request->tickets as $ticketData) {
+            $ticket = Ticket::find($ticketData['id']);
+            if ($ticket && $ticket->event_id == $event->id) {
+                $ticket->type = $ticketData['type'];
+                $ticket->price = $ticketData['price'];
+                $ticket->quantity = $ticketData['quantity'];
+                $ticket->save();
+            }
+        }
+
+        if ($request->newTickets) {
+            foreach ($request->newTickets as $newTicketData) {
+                if ($newTicketData['type']) {
+                    $newTicket = new Ticket();
+                    $newTicket->type = $newTicketData['type'];
+                    $newTicket->price = $newTicketData['price'];
+                    $newTicket->quantity = $newTicketData['quantity'];
+                    $newTicket->event_id = $event->id;
+                    $newTicket->save();
+                }
+            }
+        }
+
+        return redirect()->route('events.edit', ['id' => $event->id]);
+    }
 
 
 

@@ -85,7 +85,7 @@
                             </a>
                             <h3><a href="{{ route('events.show', $event->id) }}">{{ $event->title }}</a></h3>
                             <p>{{ $event->venue }}</p>
-                            <p><span>{{ $event->start_datetime }} to {{ $event->end_datetime }}</span></p>
+                            <p><span>{{ date('d-M-Y',strtotime($event->start_datetime)) }} to {{ date('d-M-Y',strtotime($event->end_datetime)) }}</span></p>
                         </div>
                     </div>
                 @endforeach

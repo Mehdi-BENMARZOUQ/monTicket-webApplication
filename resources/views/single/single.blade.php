@@ -109,7 +109,7 @@
             <div class="col-lg-8">
 
                 <div class="mb-5 border-bottom pb-5">
-                    <p style="border: 1px solid #f38181;border-radius: 10px"><img src="/storage/{{$event->image}}" alt="Image" class="img-fluid mb-4"></p>
+                    <p style="border: 3px solid #f38181;border-radius: 8px;width: 750px;height: 500px"><img style="border-radius: 5px;width: 100%;height: 100%" src="/storage/{{$event->image}}" alt="Image" class="img-fluid mb-4"></p>
 
                     <p>{{ $event->description }}</p>
 
@@ -148,7 +148,7 @@
                             <h3><a href="{{ route('events.show', $myevent->id) }}">{{ $myevent->title }}</a></h3>
                             <p>{{ $myevent->venue }}</p>
                             <p>
-                                <span>{{ $myevent->start_datetime }} to {{ $myevent->end_datetime }}</span>
+                                <span>{{ date('d-M-Y',strtotime($myevent->start_datetime)) }} to {{ date('d-M-Y',strtotime($myevent->end_datetime)) }}</span>
                             </p>
                         </div>
 
@@ -165,35 +165,31 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <img src="/storage/{{ Auth::user()->organization_logo }}" alt="">
-                        <div style="display: flex;align-items: center;justify-content: center;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z" />
-                                <path d="M13 5v2" />
-                                <path d="M13 17v2" />
-                                <path d="M13 11v2" />
-                            </svg>
-                            <h2 style="font-size: 25px;margin: 0;">Get Your Ticket</h2>
+                        <div style="height: 160px;width: 130px">
+
+                            <img style="height: 100%;width: 100%" src="/storage/{{ Auth::user()->organization_logo }}" alt="">
                         </div>
 
                         <div>
                             <h3>{{ $event->title }}</h3>
-                            <p>{{ $event->start_datetime }}</p>
+                            <p>{{ date('d-M-Y',strtotime($event->start_datetime)) }}</p>
                         </div>
                     </div>
                     <div class="card-content">
-                        <div>
+                        <form action="{{ route('checkout.create') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="event_id" value="{{ $event->id }}">
                             <label class="ticket-type-label" for="general">Ticket Type</label>
                             @foreach($tickets as $ticket)
                                 <div>
                                     <label for="ticket-{{ $ticket->id }}">
-                                        <input type="radio" id="ticket-{{ $ticket->id }}" name="selectedTicket" value="{{ $ticket->id }}">
+                                        <input type="radio" id="ticket-{{ $ticket->id }}" name="ticket_id" value="{{ $ticket->id }}">
                                         {{ $ticket->type }} - ${{ $ticket->price }} ({{ $ticket->quantity_available }} available)
                                     </label>
                                 </div>
                             @endforeach
-                        </div>
-                        <button class="button">Get Ticket</button>
+                            <button type="submit" class="button">Get Ticket</button>
+                        </form>
                     </div>
                 </div>
 

@@ -121,7 +121,7 @@
                         <nav class="site-navigation position-relative text-right" role="navigation">
                             <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
                                 <li class="has-children">
-                                    <a href="about.html">
+                                    <a href="#">
                                     <span>
                                         {{ Auth::user()->name }}
 

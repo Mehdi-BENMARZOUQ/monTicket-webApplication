@@ -3,7 +3,7 @@
     $currentUrl = request()->path();
     $isActiveManage = $currentUrl === 'events/create';
     $isActiveOrders = $currentUrl === 'events/orders';
-    $isActiveFavorite = $currentUrl === 'events/favorite';
+    $isActiveFavorite = $currentUrl === 'events/manage';
 
     $classesManage = ($isActiveManage )
         ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out'
@@ -53,7 +53,7 @@
 
 
     <link rel="stylesheet" href="../build/assets/app-C_TSVpcb.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 <style>
@@ -93,7 +93,7 @@
 </head>
 <body>
 <header class="site-navbar " role="banner" style="position: unset;padding:0 80px;background: #fff">
-<div class="container " >
+<div class="container " style="margin-bottom: 0;margin-top: 0;">
     <div CLASS="row">
         <a href="/" class="col-2">
             <div style="width: 65px;height: 65px">
@@ -102,9 +102,9 @@
         </a>
 
         <div class="col-8">
-            <a href="/events/create" class="{{$classesManage}}" style="height: 100%;margin:0 20px;">Events</a>
+            <a href="/events/create" class="{{$classesManage}}" style="height: 100%;margin:0 20px;">Create Events</a>
+            <a href="/events/manage" class="{{$classesFavorite}}" style="height: 100%;margin:0 20px;">My Events</a>
             <a href="/events/manage" class="{{$classesOrders}}" style="height: 100%;margin:0 20px;">Orders</a>
-            <a href="/events/manage" class="{{$classesFavorite}}" style="height: 100%;margin:0 20px;">Favorite</a>
         </div>
 
 
@@ -118,7 +118,7 @@
                     <nav class="site-navigation position-relative text-right" role="navigation">
                         <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
                             <li class="has-children">
-                                <a href="about.html" style="color: #f38181">
+                                <a href="#" style="color: #f38181">
                                     <span >
                                         {{ Auth::user()->name }}
                                     </span></a>

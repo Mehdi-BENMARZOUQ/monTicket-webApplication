@@ -34,7 +34,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: #f38181;
+            background-color: #fff;
             padding: 1rem 2rem;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
@@ -49,7 +49,7 @@
         .links {
             display: flex;
             align-items: center;
-            color: #fff;
+            color: #f38181;
         }
 
         .links a {
@@ -67,10 +67,10 @@
 <body>
 <header class="site-navbar" role="banner" style="position: unset;padding:0 80px;">
 
-    <a href="#" class="logo">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m8 3 4 8 5-5 5 15H2L8 3z" fill="#fff"/>
-        </svg>
+    <a href="/" class="col-2">
+        <div style="width: 65px;height: 65px">
+            <img style="width: 100%;height: 100%" src="/images/logoMonTicket.png" alt="">
+        </div>
     </a>
     <div class="links">
         @guest
@@ -82,12 +82,11 @@
                 <nav class="site-navigation position-relative text-right" role="navigation">
                     <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
                         <li class="has-children">
-                            <a href="about.html">
+                            <a href="#" style="color:#f38181">
                                     <span>
                                         {{ Auth::user()->name }}
 
 
-                                    <svg width="17px" height="17px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 122.88 66.91" style="position: relative;top: -1px" xml:space="preserve"><g><path fill="#fff" d="M11.68,1.95C8.95-0.7,4.6-0.64,1.95,2.08c-2.65,2.72-2.59,7.08,0.13,9.73l54.79,53.13l4.8-4.93l-4.8,4.95 c2.74,2.65,7.1,2.58,9.75-0.15c0.08-0.08,0.15-0.16,0.22-0.24l53.95-52.76c2.73-2.65,2.79-7.01,0.14-9.73 c-2.65-2.72-7.01-2.79-9.73-0.13L61.65,50.41L11.68,1.95L11.68,1.95z"/></g></svg>
                                     </span></a>
                             <ul class="dropdown ">
                                 <li><a class="" href="/user/profile">{{ __('Profile') }}</a></li>

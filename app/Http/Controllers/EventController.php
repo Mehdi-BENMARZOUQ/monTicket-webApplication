@@ -50,7 +50,14 @@ class EventController extends Controller
 
         $events = Event::where('created_by', $userId)->paginate(7);
 
-        return view('events.manageEvents', compact('events'));
+
+
+        return view('events.manageEvents', compact('events',));
+    }
+    public function getTickets($id)
+    {
+        $tickets = Ticket::where('event_id', $id)->get();
+        return response()->json($tickets);
     }
 
     public function eventsByCategory(Request $request, $categoryName)
@@ -111,6 +118,63 @@ class EventController extends Controller
         $moreEvents = Event::where('id', '!=', $id)->take(4)->get();
         $tickets = Ticket::where('event_id', $id)->get();
         return view('single.single', compact('event', 'moreEvents','tickets'));
+    }
+
+    public function edit($id)
+    {
+        $event = Event::findOrFail($id);
+        $categories = EventCategory::all();
+        $tickets = Ticket::where('event_id', $id)->get();
+
+        return view('events.updateEvent', compact('event', 'categories', 'tickets'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'category_id' => 'required|exists:event_categories,id',
+            'venue' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'start_datetime' => 'required|date',
+            'end_datetime' => 'required|date',
+            'image' => 'nullable|image',
+        ]);
+
+        $event = Event::findOrFail($id);
+
+        $imagePath = $event->image;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public/images/upload');
+            $imagePath = str_replace('public/', '', $imagePath);
+        }
+
+        $event->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'category_id' => $request->category_id,
+            'venue' => $request->venue,
+            'location' => $request->location,
+            'start_datetime' => $request->start_datetime,
+            'end_datetime' => $request->end_datetime,
+            'image' => $imagePath,
+        ]);
+
+        return redirect()->route('events.edit', $id)->with('success', 'Event updated successfully.');
+    }
+
+
+    public function delete($id)
+    {
+        $event = Event::find($id);
+        if (!$event) {
+            return response()->json(['error' => 'Event not found'], 404);
+        }
+
+        $event->delete();
+
+        return redirect()->back()->with('success', 'Event deleted successfully.');
     }
 
 
