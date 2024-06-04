@@ -15,25 +15,26 @@
     </style>
 </head>
 <body>
-<h1 style="text-align:center;color:#f38181;text-shadow: #914D4D 2px 1px 4px;">Thank you for your purchase!</h1>
+<h1 style="text-align:center;color:#f38181;text-shadow: #914D4D 2px 1px 4px;">Thank you <span style="color:#000">{{Auth::user()->name}}</span> for your purchase!</h1>
 <div style="display:flex;justify-content:space-around;max-width:70%;margin:0 200px;">
-    <div style="width:140px;height:130px;">
-        <img style="width:100%;height:100%;" src="/storage/{{ $checkout->qr_code_path }}" alt="QR Code">
-
-    </div>
     <div style="width:250px;height:250px;display:flex;align-items:center;">
         <img style="width:100%;height:100%;" src="/storage/{{ $checkout->event->image }}" alt="QR Code">
     </div>
 
     <div>
-        <p>
-            <strong>Event Name: </strong> <br>
-            {{ $checkout->event->title }}
-        </p>
-        <p>
-            <strong>Ticket Type: </strong> <br>
-            {{ $checkout->ticket->type }}
-        </p>
+        <div>
+            <h4>Event Details: </h4> <br>
+            <p>Title: {{ $checkout->event->title }}</p> <br>
+            <p>Date: {{ $checkout->event->date }}</p>
+        </div>
+        <div>
+                <strong>Tickets: </strong>
+                @foreach($tickets as $index => $ticket)
+                    <h3>Ticket {{ $index + 1 }}</h3>
+                    <p>Type: {{ $ticket['type'] }}</p>
+                    <img src="{{ asset('storage/' . $ticket['qrcode']) }}" alt="QR Code">
+                @endforeach
+        </div>
         <p>
             <strong>Quantity: </strong> <br>
             {{ $checkout->quantity }}
@@ -45,6 +46,7 @@
 
     </div>
 
+    <p>Thank you for choosing our service!</p>
 </div>
 
 

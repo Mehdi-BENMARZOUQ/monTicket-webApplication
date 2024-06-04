@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Checkout;
 use App\Models\Event;
 use App\Models\EventCategory;
 use App\Models\Ticket;
@@ -16,7 +17,17 @@ use Illuminate\View\View;
 
 class TicketController extends Controller
 {
+    public function show($checkout_id, $ticket_number)
+    {
+        $checkout = Checkout::findOrFail($checkout_id);
 
+        // Ensure the ticket number is valid (optional but recommended)
+        if ($ticket_number > $checkout->quantity) {
+            abort(404, 'Ticket not found.');
+        }
+
+        return view('tickets.show', compact('checkout', 'ticket_number'));
+    }
 
     public function update(Request $request, $eventId)
     {

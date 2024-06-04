@@ -111,7 +111,7 @@ Route::get('/checkout/payment/{id}', [CheckoutController::class, 'payment'])->na
 Route::post('/checkout/pay', [CheckoutController::class, 'pay'])->name('checkout.pay');
 Route::get('/checkout/confirmation/{id}', [CheckoutController::class, 'confirmation'])->name('checkout.confirmation');
 Route::post('/checkout/purchase/{id}', [CheckoutController::class, 'processPayment'])->name('checkout.processPayment');
-
+Route::get('/ticket/{checkout_id}/{ticket_number}', [TicketController::class, 'show'])->name('ticket.show');
 Route::post('/validate-coupon', [CouponController::class, 'validateCoupon'])->name('validate.coupon');
 
 // routes/web.php

@@ -19,8 +19,13 @@
 </head>
 <body>
 <h1>Ticket Details</h1>
+<div style="position:relative;">
+    <div style="transform: rotate(90deg) !important;position: absolute">
 
-<video id="preview"></video>
+        <video id="preview" ></video>
+    </div>
+</div>
+
 
 <script type="text/javascript">
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });

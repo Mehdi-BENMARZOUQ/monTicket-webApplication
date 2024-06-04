@@ -28,6 +28,7 @@ class CheckoutController extends Controller
             'ticket_id' => 'required|exists:tickets,id',
             'quantity' => 'required|integer|min:1',
             'coupon_code' => 'nullable|string',
+            'payment_method' => 'required|string|in:stripe,paypal',
         ]);
 
         $ticket = Ticket::findOrFail($request->ticket_id);
@@ -45,27 +46,6 @@ class CheckoutController extends Controller
             'total' => $total,
         ]);
 
-        return redirect()->route('checkout.payment', $checkout->id);
-    }
-
-    public function payment($id)
-    {
-        $checkout = Checkout::findOrFail($id);
-        return view('checkout.payment', compact('checkout'));
-    }
-
-        public function processPayment(Request $request, $id)
-    {
-        $checkout = Checkout::findOrFail($id);
-        $paymentMethod = $request->input('payment_method');
-
-        // Simulate payment processing
-        if ($paymentMethod === 'stripe') {
-            // Handle Stripe payment
-        } elseif ($paymentMethod === 'paypal') {
-            // Handle PayPal payment
-        }
-
         // Generate QR code
         $qrCode = new QrCode(route('checkout.confirmation', $checkout->id));
         $qrCode->setSize(200);
@@ -75,12 +55,14 @@ class CheckoutController extends Controller
         file_put_contents(public_path('storage/' . $qrCodePath), $qrCodeData->getString());
         $checkout->update(['qr_code_path' => $qrCodePath]);
 
-        // Send confirmation email
+        // Send confirmation email with PDF
         Mail::to($request->user()->email)->send(new TicketConfirmation($checkout));
 
         return redirect()->route('checkout.confirmation', $checkout->id)
             ->with('message', 'Payment processed successfully.');
     }
+
+
 
     public function confirmation($id)
     {

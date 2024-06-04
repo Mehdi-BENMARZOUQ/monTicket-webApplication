@@ -2,19 +2,41 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .qr-code {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .ticket {
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-<h1>Thank you for your purchase!</h1>
-<p>Event Name: {{ $checkout->event->name }}</p>
-<p>Ticket Type: {{ $checkout->ticket->type }}</p>
-<p>Quantity: {{ $checkout->quantity }}</p>
-<p>Total Amount: ${{ $checkout->total_amount }}</p>
-
-<!-- Display QR Code -->
-<div>
-    <img src="{{ $qrCodeUrl }}" alt="QR Code">
+<div class="header">
+    <h1>Ticket Confirmation</h1>
+    <p>Event: {{ $checkout->event->title }}</p>
+    <p>Date: {{ date('d-M-Y', strtotime($checkout->event->start_datetime)) }} to {{ date('d-M-Y', strtotime($checkout->event->end_datetime)) }}</p>
+    <p>Venue: {{ $checkout->event->venue }}</p>
 </div>
+
+@foreach ($tickets as $index => $ticketPath)
+    <div class="ticket">
+        <p>Ticket {{ $index + 1 }} of {{ $checkout->quantity }}</p>
+        <div class="qr-code">
+            <img src="{{ public_path('storage/' . $ticketPath) }}" alt="QR Code">
+        </div>
+    </div>
+@endforeach
 </body>
 </html>

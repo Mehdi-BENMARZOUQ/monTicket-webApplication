@@ -6,31 +6,20 @@
     <title>Checkout</title>
     <link rel="shortcut icon" href="../images/logoMonTicket.png">{{--Logo--}}
 
-
-
     <link rel="stylesheet" href="../fonts/icomoon/style.css">
-
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-
     <link rel="stylesheet" href="../css/magnific-popup.css">
     <link rel="stylesheet" href="../css/jquery-ui.css">
     <link rel="stylesheet" href="../css/owl.carousel.min.css">
     <link rel="stylesheet" href="../css/owl.theme.default.min.css">
-
     <link rel="stylesheet" href="../css/bootstrap-datepicker.css">
-
     <link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
-
     <link rel="stylesheet" href="../css/aos.css">
     <link rel="stylesheet" href="../css/rangeslider.css">
-
-
     <link rel="stylesheet" href="../build/assets/app-C_TSVpcb.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     <style>
         .checkout-container {
             max-width: 3xl;
@@ -64,12 +53,10 @@
                         <div class="row" style="display: flex;justify-content: space-between;align-items: center">
                             <div class="col-5">
                                 <p style="margin: 10px 0;"><strong>Event Name:</strong></p>
-
                                 <input style="width: 100%;opacity: 0.6;cursor: not-allowed;border-radius: 8px;" type="text" disabled value="{{ $event->title }}">
                             </div>
                             <div class="col-5">
                                 <p style="margin: 10px 0;" ><strong>Address :</strong></p>
-
                                 <input style="width: 100%;opacity: 0.6;cursor: not-allowed;border-radius: 8px;" type="text" disabled value="{{ $event->venue }}">
                             </div>
                         </div>
@@ -88,34 +75,27 @@
             <form action="{{ route('checkout.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="event_id" value="{{ $event->id }}">
-<div class="row">
-
-
-                <div class="col-4">
-                    <label for="ticket_id" style="margin: 10px 0;"><strong>Ticket Type</strong></label><br>
-                    <select name="ticket_id" id="ticket_id" style="border-radius: 8px;">
-                        @foreach ($tickets as $ticket)
-                            <option style="border-radius: 8px;" value="{{ $ticket->id }}" data-price="{{ $ticket->price }}">{{ $ticket->type }} - {{ $ticket->price }}$</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-4">
-                    <label for="quantity" style="margin: 10px 0;"><strong>Quantity</strong></label><br>
-                    <input style="border-radius: 8px;" type="number" name="quantity" id="quantity" min="1" required>
-                </div>
-
-                <div class="col-4">
-                    <p style="margin: 10px 0;"><strong>Subtotal: $</strong><br>
+                <div class="row">
+                    <div class="col-4">
+                        <label for="ticket_id" style="margin: 10px 0;"><strong>Ticket Type</strong></label><br>
+                        <select name="ticket_id" id="ticket_id" style="border-radius: 8px;">
+                            @foreach ($tickets as $ticket)
+                                <option style="border-radius: 8px;" value="{{ $ticket->id }}" data-price="{{ $ticket->price }}">{{ $ticket->type }} - {{ $ticket->price }}$</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label for="quantity" style="margin: 10px 0;"><strong>Quantity</strong></label><br>
+                        <input style="border-radius: 8px;" type="number" name="quantity" id="quantity" min="1" required>
+                    </div>
+                    <div class="col-4">
+                        <p style="margin: 10px 0;"><strong>Subtotal: $</strong><br>
                         <div style="font-weight: 600">
-
                             <span id="subtotal">0.00</span>
                         </div>
-                    </p>
-
+                        </p>
+                    </div>
                 </div>
-</div>
-
                 <div class="grid gap-2" style="margin-top:20px;">
                     <h2 class="text-lg font-semibold" style="font-size: 30px;font-weight: 700">Discounts</h2>
                 </div>
@@ -131,9 +111,20 @@
                         </div>
                         </p>
                     </div>
-
                 </div>
-
+                <div class="grid gap-2" style="margin-top:20px;">
+                    <h2 class="text-lg font-semibold" style="font-size: 30px;font-weight: 700">Choose Payment Method</h2>
+                    <div class="row">
+                        <div class="col-6">
+                            <input type="radio" name="payment_method" value="stripe" id="stripe" required>
+                            <label for="stripe"><strong>Stripe</strong></label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" name="payment_method" value="paypal" id="paypal" required>
+                            <label for="paypal"><strong>PayPal</strong></label>
+                        </div>
+                    </div>
+                </div>
                 <button class="btn-dark" type="submit" style="
                 width: 100%;
                 background-color: #f38181;
@@ -143,13 +134,12 @@
                 padding: 0.5rem 1rem;
                 border-radius: 0.25rem;
                 margin-top: 20px;
-                transition: background-color 0.3s ease;"       >Proceed to Payment</button>
+                transition: background-color 0.3s ease;"
+                >Proceed to Payment</button>
             </form>
         </div>
     </div>
 </div>
-
-
 
 <script>
     $(document).ready(function () {
@@ -187,8 +177,17 @@
         $('#coupon_code').on('keyup', calculateTotal);
     });
 </script>
-
-
+<script>
+    $('#quantity').on('change', function() {
+        if ($(this).val() < 1) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Invalid Quantity',
+                text: 'Quantity must be at least 1.'
+            });
+        }
+    });
+</script>
 
 <script src="../js/jquery-3.3.1.min.js"></script>
 <script src="../js/jquery-migrate-3.0.1.min.js"></script>
@@ -202,14 +201,7 @@
 <script src="../js/bootstrap-datepicker.min.js"></script>
 <script src="../js/aos.js"></script>
 <script src="../js/rangeslider.min.js"></script>
-
-
-
 <script src="../js/typed.js"></script>
-
-
-
 <script src="../js/main.js"></script>
-
 </body>
 </html>
