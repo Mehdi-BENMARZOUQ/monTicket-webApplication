@@ -30,7 +30,7 @@
     <meta name="keywords" content="" />
     <meta name="author" content="Free-Template.co" />
 
-    <link rel="shortcut icon" href="ftco-32x32.png">{{--Logo--}}
+    <link rel="shortcut icon" href="../images/logoMonTicket.png">{{--Logo--}}
 
     <link href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
 

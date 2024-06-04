@@ -113,7 +113,7 @@
 
                     <p>{{ $event->description }}</p>
 
-                    <p>{{ $event->venue }}</p>
+                    <p style="font-weight: 600">Venue : {{ $event->venue }}</p>
 
                 </div>
 
@@ -173,21 +173,13 @@
                         <div>
                             <h3>{{ $event->title }}</h3>
                             <p>{{ date('d-M-Y',strtotime($event->start_datetime)) }}</p>
+                            <p>{{ date('d-M-Y',strtotime($event->end_datetime)) }}</p>
                         </div>
                     </div>
+                    <!-- Replace the existing form in the sidebar with this one -->
                     <div class="card-content">
-                        <form action="{{ route('checkout.create') }}" method="POST">
-                            @csrf
+                        <form action="{{ route('checkout.create') }}" method="GET">
                             <input type="hidden" name="event_id" value="{{ $event->id }}">
-                            <label class="ticket-type-label" for="general">Ticket Type</label>
-                            @foreach($tickets as $ticket)
-                                <div>
-                                    <label for="ticket-{{ $ticket->id }}">
-                                        <input type="radio" id="ticket-{{ $ticket->id }}" name="ticket_id" value="{{ $ticket->id }}">
-                                        {{ $ticket->type }} - ${{ $ticket->price }} ({{ $ticket->quantity_available }} available)
-                                    </label>
-                                </div>
-                            @endforeach
                             <button type="submit" class="button">Get Ticket</button>
                         </form>
                     </div>

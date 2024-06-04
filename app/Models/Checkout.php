@@ -10,7 +10,7 @@ class Checkout extends Model
     use HasFactory;
 
     protected $fillable = [
-        'event_id', 'ticket_id', 'coupon_code', 'total_amount',
+        'event_id', 'ticket_id', 'coupon_code','quantity', 'total_amount','qr_code_path'
     ];
 
     public function event()

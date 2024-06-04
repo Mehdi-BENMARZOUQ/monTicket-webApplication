@@ -1,4 +1,5 @@
 @include('events.navbarbyCategory')
+@include('functions')
 <style>
 
 
@@ -240,7 +241,7 @@
                     <div class="p-4">
                         <h3 class="text-xl font-bold text-f38181"><a href="{{ route('events.show', $favorite->id) }}">{{ $favorite->title }}</a></h3>
                         <p class="text-gray-500">Organized by {{ $favorite->organization_name }}</p>
-                        <p class="mt-2 text-gray-700">{{ $favorite->description }}</p>
+                        <p class="mt-2 text-gray-700">{{ wrapDescription($favorite->description ,19)}}...</p>
                         <div class="mt-4 flex items-center justify-between">
                             <span class="rounded-full bg-f38181 px-3 py-1 text-sm text-white">{{$favorite->category->name}}</span>
                             <div class="">

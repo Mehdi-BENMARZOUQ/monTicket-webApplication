@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('checkouts', function (Blueprint $table) {
+        Schema::create('Coupon_codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->constrained()->onDelete('cascade');
             $table->foreignId('ticket_id')->constrained()->onDelete('cascade');
-            $table->string('coupon_code')->nullable();
-            $table->integer('quantity');
-            $table->decimal('total_amount', 10, 2);
-            $table->string('qr_code_path')->nullable();
+            $table->string('ticket_name');
+            $table->string('code')->unique();
+            $table->decimal('percentage', 5, 2);
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('checkouts');
+        Schema::dropIfExists('coupon_codes');
     }
 };

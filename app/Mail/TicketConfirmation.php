@@ -6,8 +6,6 @@ use App\Models\Checkout;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Endroid\QrCode\Builder\Builder;
-use Endroid\QrCode\Writer\PngWriter;
 
 class TicketConfirmation extends Mailable
 {
@@ -22,16 +20,12 @@ class TicketConfirmation extends Mailable
 
     public function build()
     {
-        // Create the QR code
-        $result = Builder::create()
-            ->writer(new PngWriter())
-            ->data('Ticket ID: ' . $this->checkout->id)
-            ->build();
-
-        // Encode the QR code as base64
-        $qrCode = base64_encode($result->getString());
+        $qrCodeUrl = asset('storage/' . $this->checkout->qr_code_path);
 
         return $this->view('emails.ticket_confirmation')
-            ->with(['qrCode' => $qrCode]);
+            ->with([
+                'checkout' => $this->checkout,
+                'qrCodeUrl' => $qrCodeUrl,
+            ]);
     }
 }
