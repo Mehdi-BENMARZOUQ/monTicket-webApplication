@@ -90,15 +90,13 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/switch-to-organizer', Swi
 
 
 // Admin-only routes
-Route::middleware(['auth:sanctum', 'verified', 'role'])->group(function () {
+Route::middleware(['auth:sanctum', 'verified','Admin'])->group(function () {
     Route::get('/userList', [UserController::class, 'displayList'])->name('users.list');
     Route::get('/eventsList', [EventController::class, 'displayList'])->name('events.list');
 
     Route::get('/dashboard', function () {
         return view('Dashboard');
     })->name('dashboard');
-
-
 
 });
 
@@ -124,7 +122,7 @@ Route::get('/scan-barcode', function () {
 /*Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
     return view('welcome');
 })->name('welcome');*/
-//python python_scripts/generate_qr.py some_test_data
+
 //Route::middleware(['auth:sanctum', 'verified'])->get('/', [EventController::class, 'displayWelcomeList'])->name('welcome');
 
 

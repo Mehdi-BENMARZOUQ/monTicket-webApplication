@@ -29,7 +29,7 @@
         </div>
         <div>
                 <strong>Tickets: </strong>
-                @foreach($tickets as $index => $ticket)
+                @foreach($checkout->ticket_id as $index => $ticket)
                     <h3>Ticket {{ $index + 1 }}</h3>
                     <p>Type: {{ $ticket['type'] }}</p>
                     <img src="{{ asset('storage/' . $ticket['qrcode']) }}" alt="QR Code">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Checkout;
 use App\Models\Event;
 use App\Models\Ticket;
+use App\Models\CouponCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Endroid\QrCode\QrCode;
@@ -34,7 +35,7 @@ class CheckoutController extends Controller
         $ticket = Ticket::findOrFail($request->ticket_id);
         $quantity = $request->quantity;
         $subtotal = $ticket->price * $quantity;
-        $discount = $this->calculateDiscount($request->coupon_code);
+        $discount = $this->calculateDiscount($request->coupon_code,$request->ticket_id);
         $total = $subtotal * (1 - $discount);
 
         $checkout = Checkout::create([
@@ -70,11 +71,15 @@ class CheckoutController extends Controller
         return view('checkout.confirmation', compact('checkout'));
     }
 
-    private function calculateDiscount($couponCode)
+    private function calculateDiscount($couponCode, $ticketId)
     {
-        if ($couponCode === 'DISCOUNT10') {
-            return 0.1;
+
+        $coupon = CouponCode::where('code', $couponCode)
+            ->where('ticket_id', $ticketId);
+
+        if ($coupon) {
+            return $coupon->percentage / 100;
         }
-        return 0;
+        return 0; 
     }
 }

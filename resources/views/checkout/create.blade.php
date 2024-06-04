@@ -35,6 +35,12 @@
     </style>
 </head>
 <body>
+<div style=" margin-top: 12px;">
+    <a href="{{route("welcome")}}" style="color: #1b1bbd;text-decoration: none;font-weight: 600;padding: 0 2rem;display: flex;align-items: center">
+        <svg width="12px" height="12px" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 122.88 108.06"><title>back-arrow</title><path fill="#1b1bbd" d="M63.94,24.28a14.28,14.28,0,0,0-20.36-20L4.1,44.42a14.27,14.27,0,0,0,0,20l38.69,39.35a14.27,14.27,0,0,0,20.35-20L48.06,68.41l60.66-.29a14.27,14.27,0,1,0-.23-28.54l-59.85.28,15.3-15.58Z"/></svg>
+        <p style="margin-left: 5px">Back to events list</p>
+    </a>
+</div>
 <div class="container" style="margin-top:5px;">
     <div class="grid gap-8 checkout-container">
         <div class="checkout-header" style="margin-bottom: 25px;">

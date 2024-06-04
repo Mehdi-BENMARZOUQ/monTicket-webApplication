@@ -1,3 +1,4 @@
+@include('functions')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -242,7 +243,7 @@
                                         <td style="text-align: center" class="id">{{ $event->id }}</td>
                                         <td style="text-align: center">{{ $event->creator->name }} </td>
                                         <td style="text-align: center">{{ $event->title }} </td>
-                                        <td style="text-align: center">{{ $event->description }}</td>
+                                        <td style="text-align: center">{{wrapDescription($event->description ,19) }}</td>
                                         <td style="color: #f38181;font-weight: 600;text-align: center">{{ $event->category->name}}</td>
                                         <td style="text-align: center">{{ $event->venue }}</td>
                                         <td style="text-align: center">{{ date('d-M-Y',strtotime($event->start_datetime)) }}
