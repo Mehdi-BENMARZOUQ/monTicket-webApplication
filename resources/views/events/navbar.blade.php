@@ -2,7 +2,7 @@
 @php
     $currentUrl = request()->path();
     $isActiveManage = $currentUrl === 'events/create';
-    $isActiveOrders = $currentUrl === 'events/orders';
+    $isActiveOrders = $currentUrl === 'orders';
     $isActiveFavorite = $currentUrl === 'events/manage';
     $isActiveBarCode = $currentUrl === 'scan-barcode';
 
@@ -109,8 +109,8 @@
         <div class="col-8">
             <a href="/events/create" class="{{$classesManage}}" style="height: 100%;margin:0 20px;">Create Events</a>
             <a href="/events/manage" class="{{$classesFavorite}}" style="height: 100%;margin:0 20px;">My Events</a>
-            <a href="/events/manage" class="{{$classesOrders}}" style="height: 100%;margin:0 20px;">Orders</a>
-            <a href="/scan-barcode" class="{{$classesBarCode}}" style="height: 100%;margin:0 20px;">Scan Barcode</a>
+            <a href="/orders" class="{{$classesOrders}}" style="height: 100%;margin:0 20px;">Orders</a>
+            {{--<a href="/scan-barcode" class="{{$classesBarCode}}" style="height: 100%;margin:0 20px;">Scan Barcode</a>--}}
         </div>
 
 

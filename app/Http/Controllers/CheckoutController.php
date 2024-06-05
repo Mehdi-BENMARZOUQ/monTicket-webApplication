@@ -159,6 +159,53 @@ class CheckoutController extends Controller
         }
     }
 
+    public function showOrdersSummary(Request $request)
+    {
+        // Get the ID of the currently authenticated user
+        $userId = $request->user()->id;
+
+        // Get the number of orders per page (customizable value)
+        $perPage = 10;
+
+        // Get the current page number from the request (default to 1)
+        $currentPage = $request->query('page', 1);
+
+        // Fetch only the events created by the currently authenticated user with pagination
+        $events = Event::where('created_by', $userId)
+            ->paginate($perPage, ['*'], 'page', $currentPage);
+
+        // Prepare an array to hold order data
+        $orders = [];
+
+        // Loop through each event
+        foreach ($events as $event) {
+            // Get total tickets for the event
+            $totalTickets = Ticket::where('event_id', $event->id)->sum('quantity_available');
+
+            // Get tickets sold for the event
+            $ticketsSold = MyTicket::where('event_id', $event->id)->count();
+
+            // Calculate tickets left
+            $ticketsLeft = $totalTickets - $ticketsSold;
+
+            // Add order data to the array
+            $orders[] = [
+                'event_name' => $event->title,
+                'total_ticket' => $totalTickets,
+                'ticket_sold' => $ticketsSold,
+                'ticket_left' => $ticketsLeft,
+            ];
+        }
+
+        // Pass pagination information to the view
+        $pagination = [
+            'currentPage' => $currentPage,
+            'perPage' => $perPage,
+            'hasMorePages' => $events->hasMorePages(),
+        ];
+
+        return view('orders.index', ['orders' => $orders, 'pagination' => $pagination]);
+    }
 
 
 

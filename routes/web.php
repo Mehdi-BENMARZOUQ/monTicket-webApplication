@@ -134,6 +134,9 @@ Route::get('/scan-barcode', function () {
     return view('barcode.scan');
 })->name('barcode.scan');
 
+Route::get('/orders', [CheckoutController::class, 'showOrdersSummary'])->name('orders.summary');
+
+
 // Email verification routes (using Jetstream)
 /*Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
     return view('welcome');

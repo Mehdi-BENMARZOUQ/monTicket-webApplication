@@ -1,168 +1,321 @@
-@include('events.navbar')
-<style>
-    .swal-button{
-        display: inline-block;
-        border-radius: 2px;
-        padding: 4px 15px;
-        color: #fff;
-        font-weight: 600;
-        background: #f38181;
-    }
-    .swal-cancel-button{
-        color: #f38181 !important;
-        border: 1px solid #f38181 !important;
-        background: transparent !important;
-    }
 
-    .swal-cancel-button:hover{
-        color: #fff !important;
-        border: 1px solid #f38181 !important;
-        background: #f38181 !important;
-    }
-    .active{
-        background: #f38181;
-    }
+@php
+    $currentUrl = request()->path();
+    $isActiveManage = $currentUrl === 'events/create';
+    $isActiveOrders = $currentUrl === 'orders';
+    $isActiveFavorite = $currentUrl === 'events/manage';
+    $isActiveBarCode = $currentUrl === 'scan-barcode';
 
-    .flex-container {
-        display: flex;
-        min-height: 100vh;
-    }
+    $classesManage = ($isActiveManage )
+        ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out'
+        : 'inline-flex items-center px-1 pt-1 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out';
 
-    .icon-svg {
-        transition: width 0.3s, height 0.3s; /* Apply transition to width and height properties */
-    }
+    $classesOrders  = ($isActiveOrders )
+        ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out'
+        : 'inline-flex items-center px-1 pt-1 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out';
 
-    .icon-svg:hover {
-        width: 40px; /* Increase width on hover */
-        height: 40px; /* Increase height on hover */
-    }
+    $classesFavorite = ($isActiveFavorite )
+        ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out'
+        : 'inline-flex items-center px-1 pt-1 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out';
+
+    $classesBarCode = ($isActiveBarCode )
+        ? 'inline-flex items-center px-1 pt-1 border-b-2 border-indigo-400 text-sm font-medium leading-5 text-gray-900 focus:outline-none focus:border-indigo-700 transition duration-150 ease-in-out'
+        : 'inline-flex items-center px-1 pt-1 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out';
+
+@endphp
+
+    <!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="Free-Template.co" />
+
+    <link rel="shortcut icon" href="../images/logoMonTicket.png">{{--Logo--}}
+
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="../fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/magnific-popup.css">
+    <link rel="stylesheet" href="../css/jquery-ui.css">
+    <link rel="stylesheet" href="../css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="../css/bootstrap-datepicker.css">
+
+    <link rel="stylesheet" href="../fonts/flaticon/font/flaticon.css">
+
+    <link rel="stylesheet" href="../css/aos.css">
+    <link rel="stylesheet" href="../css/rangeslider.css">
+
+    <link rel="stylesheet" href="../css/style.css">
 
 
-    .popup {
-        display: none;
-        background-color: rgb(0, 0, 0);
-        z-index: 1000;
-        width: 100vw;
-        top: 0;
-        height: 100vh;
-        position: fixed;
-        left: 0;
-    }
-    .popup-container{
+    <link rel="stylesheet" href="../build/assets/app-C_TSVpcb.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        transform: translate(-50%, -50%);
-        position: absolute;
-        background: white;
-        top: 50%;
-        left: 50%;
-    }
 
-    /* Close button styling */
-    .popup {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        z-index: 100;
-    }
+    <style>
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f38181;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
-    .popup-container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        width: 600px;
-        height: 374px;
-    }
+        .logo {
+            width: 2rem;
+            height: 2rem;
+            fill: #fff;
+            cursor: pointer;
+        }
 
-    .popup-close {
-        position: absolute;
-        top: 0px;
-        right: 20px;
-        font-size: 30px;
-        color: #f38181;
-        cursor: pointer;
-    }
+        .links {
+            display: flex;
+            align-items: center;
+            color: #fff;
+        }
 
-    #update-form {
-        margin-top: 20px;
-    }
+        .links a {
+            margin-right: 1rem;
+            text-decoration: none;
+            color: inherit;
+        }
 
-    #update-form p {
-        margin-bottom: 10px;
-    }
+        .links a:hover {
+            text-decoration: underline;
+        }
 
-    #update-form label {
-        display: inline-block;
-        width: 100px;
-    }
+    </style>
+</head>
+<body>
+<header class="site-navbar " role="banner" style="position: unset;padding:0 80px;background: #fff">
+    <div class="container " style="margin-bottom: 0;margin-top: 0;">
+        <div CLASS="row" style="display: flex;justify-content: space-between">
+            <a href="/" class="col-2">
+                <div style="width: 65px;height: 65px">
+                    <img style="width: 100%;height: 100%" src="/images/logoMonTicket.png" alt="">
+                </div>
+            </a>
 
-    #update-form input[type="text"],
-    #update-form select {
-        width: calc(100% - 110px);
-        padding: 5px;
-    }
 
-    #update-button {
-        background-color: #f38181;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+            <div class="links col-2">
+                @guest
+                    <div class="mb-0">
+                        <a href="{{ route('login') }}" class="text-white h5 mb-0 login-link">Login</a>
+                    </div>
+                @else
+                    <div class="mb-0">
+                        <nav class="site-navigation position-relative text-right" role="navigation">
+                            <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+                                <li class="has-children">
+                                    <a href="#" style="color: #f38181">
+                                    <span >
+                                        {{ Auth::user()->name }}
+                                    </span></a>
+                                    <ul class="dropdown ">
+                                        @if( Auth::user()->role === 'admin' )
+                                            <li><a class="" href="{{route('dashboard')}}">Dashboard</a></li>
+                                        @endif
+                                        <li><a class="" href="/events/manage">My Events</a></li>
+                                        <li><a class="" href="/user/profile">{{ __('Profile') }}</a></li>
+                                        <li><form method="POST" action="{{ route('logout') }}" class="dropdown-item p-0 m-0">
+                                                @csrf
+                                                <button type="submit" class="btn btn-link w-100 text-left px-3 py-2">
+                                                    {{ __('Log Out') }}
+                                                </button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                @endguest
+            </div>
+        </div>
 
-    #update-button:hover {
-        background-color: #ff5a5a;
-    }
+    </div>
+    <style>
+        .swal-button{
+            display: inline-block;
+            border-radius: 2px;
+            padding: 4px 15px;
+            color: #fff;
+            font-weight: 600;
+            background: #f38181;
+        }
+        .swal-cancel-button{
+            color: #f38181 !important;
+            border: 1px solid #f38181 !important;
+            background: transparent !important;
+        }
 
-    #close-button {
-        background-color: #ccc;
-        color: #333;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
+        .swal-cancel-button:hover{
+            color: #fff !important;
+            border: 1px solid #f38181 !important;
+            background: #f38181 !important;
+        }
+        .active{
+            background: #f38181;
+        }
 
-    #close-button:hover {
-        background-color: #999;
-    }
-    .delete-btn:focus{
-        border: none;
-    }
+        .flex-container {
+            display: flex;
+            min-height: 100vh;
+        }
 
-    .filter-buttons{
-        display: flex;
-        justify-content: end;
-        align-items: center;
-    }
+        .icon-svg {
+            transition: width 0.3s, height 0.3s; /* Apply transition to width and height properties */
+        }
 
-    .download-button{
-        background: #f38181;
-        display: flex;
-        padding: 10px;
-        border-radius: 4px;
-        margin-right: 10px;
-        color: #fff;
-        font-weight: 600;
-    }
-    #searchInput:focus{
-        border-radius: 10px;
-        padding: 8px;
-        border: 2px solid #f38181;
-        box-shadow: none;
-    }
-</style>
+        .icon-svg:hover {
+            width: 40px; /* Increase width on hover */
+            height: 40px; /* Increase height on hover */
+        }
+
+
+        .popup {
+            display: none;
+            background-color: rgb(0, 0, 0);
+            z-index: 1000;
+            width: 100vw;
+            top: 0;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+        }
+        .popup-container{
+
+            transform: translate(-50%, -50%);
+            position: absolute;
+            background: white;
+            top: 50%;
+            left: 50%;
+        }
+
+        /* Close button styling */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+        }
+
+        .popup-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            width: 600px;
+            height: 374px;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 0px;
+            right: 20px;
+            font-size: 30px;
+            color: #f38181;
+            cursor: pointer;
+        }
+
+        #update-form {
+            margin-top: 20px;
+        }
+
+        #update-form p {
+            margin-bottom: 10px;
+        }
+
+        #update-form label {
+            display: inline-block;
+            width: 100px;
+        }
+
+        #update-form input[type="text"],
+        #update-form select {
+            width: calc(100% - 110px);
+            padding: 5px;
+        }
+
+        #update-button {
+            background-color: #f38181;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #update-button:hover {
+            background-color: #ff5a5a;
+        }
+
+        #close-button {
+            background-color: #ccc;
+            color: #333;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #close-button:hover {
+            background-color: #999;
+        }
+        .delete-btn:focus{
+            border: none;
+        }
+
+        .filter-buttons{
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+
+        .download-button{
+            background: #f38181;
+            display: flex;
+            padding: 10px;
+            border-radius: 4px;
+            margin-right: 10px;
+            color: #fff;
+            font-weight: 600;
+        }
+        #searchInput:focus{
+            border-radius: 10px;
+            padding: 8px;
+            border: 2px solid #f38181;
+            box-shadow: none;
+        }
+    </style>
+</header>
+
 <div class="py-12">
+    <div style="margin-top: 5px">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight" style="text-align: Center;font-size: 50px">
+            {{ __('My Tickets') }}
+        </h2>
+    </div>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="content" style="background: #FAFCFF;width: 100%;">
                 <div class="List-container">

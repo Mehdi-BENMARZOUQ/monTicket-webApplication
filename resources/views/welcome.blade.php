@@ -143,7 +143,7 @@
         <div class="container">
             <div class="row justify-content-center mb-5">
                 <div class="col-md-7 text-center border-primary">
-                    <h2 class="font-weight-light text-primary">Last Added Places</h2>
+                    <h2 class="font-weight-light text-primary">Last Added Events</h2>
                     <p class="color-black-opacity-5">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                 </div>
             </div>
