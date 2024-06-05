@@ -132,7 +132,11 @@
                                     @if( Auth::user()->role === 'admin' )
                                         <li><a class="" href="{{route('dashboard')}}">Dashboard</a></li>
                                     @endif
-                                    <li><a class="" href="/events/manage">Manage my events</a></li>
+
+
+                                    @if( Auth::user()->role === 'event_organizer' )
+                                        <li><a class="" href="/events/manage">Manage my events</a></li>
+                                    @endif
                                     <li><a class="" href="/user/profile">{{ __('Profile') }}</a></li>
                                     <li><form method="POST" action="{{ route('logout') }}" class="dropdown-item p-0 m-0">
                                             @csrf

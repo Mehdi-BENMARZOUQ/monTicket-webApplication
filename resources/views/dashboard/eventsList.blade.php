@@ -251,9 +251,9 @@
                                             {{ date('d-M-Y',strtotime($event->end_datetime)) }}
                                         </td>
                                         <td>
-                                            <div style="display: flex;font-weight: 600;color: #f38181;align-items: center">
+                                            <div class="send-message-button" data-event-id="{{ $event->id }}" style="display: flex;font-weight: 600;color: #f38181;align-items: center;cursor: pointer" >
                                                 Send Message
-                                                <svg width="17px" height="17px"  id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  viewBox="0 0 111.686 122.879" enable-background="new 0 0 111.686 122.879" xml:space="preserve"><g><path fill="#f38181" d="M83.896,5.08H27.789c-12.491,0-22.709,10.219-22.709,22.71v40.079c0,12.489,10.22,22.71,22.709,22.71h17.643 c-2.524,9.986-5.581,18.959-14.92,27.241c17.857-4.567,31.642-13.8,41.759-27.241h3.051c12.488,0,31.285-10.219,31.285-22.71V27.79 C106.605,15.299,96.387,5.08,83.896,5.08L83.896,5.08z M81.129,41.069c-4.551,0-8.24,3.691-8.24,8.242s3.689,8.242,8.24,8.242 c4.553,0,8.242-3.691,8.242-8.242S85.682,41.069,81.129,41.069L81.129,41.069z M30.556,41.069c-4.552,0-8.242,3.691-8.242,8.242 s3.69,8.242,8.242,8.242c4.551,0,8.242-3.691,8.242-8.242S35.107,41.069,30.556,41.069L30.556,41.069z M55.843,41.069 c-4.551,0-8.242,3.691-8.242,8.242s3.691,8.242,8.242,8.242c4.552,0,8.241-3.691,8.241-8.242S60.395,41.069,55.843,41.069 L55.843,41.069z M27.789,0h56.108h0.006v0.02c7.658,0.002,14.604,3.119,19.623,8.139l-0.01,0.01 c5.027,5.033,8.148,11.977,8.15,19.618h0.02v0.003h-0.02v40.079h0.02v0.004h-0.02c-0.004,8.17-5.68,15.289-13.24,20.261 c-7.041,4.629-15.932,7.504-23.104,7.505v0.021H75.32v-0.021h-0.576c-5.064,6.309-10.941,11.694-17.674,16.115 c-7.443,4.888-15.864,8.571-25.31,10.987l-0.004-0.016c-1.778,0.45-3.737-0.085-5.036-1.552c-1.852-2.093-1.656-5.292,0.437-7.144 c4.118-3.651,6.849-7.451,8.826-11.434c1.101-2.219,1.986-4.534,2.755-6.938h-10.95h-0.007v-0.021 c-7.656-0.002-14.602-3.119-19.622-8.139C3.138,82.478,0.021,75.53,0.02,67.871H0v-0.003h0.02V27.79H0v-0.007h0.02 C0.021,20.282,3.023,13.46,7.878,8.464C7.967,8.36,8.059,8.258,8.157,8.16c5.021-5.021,11.968-8.14,19.628-8.141V0H27.789L27.789,0 z"/></g></svg>
+                                                <svg    width="17px" height="17px"  id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  viewBox="0 0 111.686 122.879" enable-background="new 0 0 111.686 122.879" xml:space="preserve"><g><path fill="#f38181" d="M83.896,5.08H27.789c-12.491,0-22.709,10.219-22.709,22.71v40.079c0,12.489,10.22,22.71,22.709,22.71h17.643 c-2.524,9.986-5.581,18.959-14.92,27.241c17.857-4.567,31.642-13.8,41.759-27.241h3.051c12.488,0,31.285-10.219,31.285-22.71V27.79 C106.605,15.299,96.387,5.08,83.896,5.08L83.896,5.08z M81.129,41.069c-4.551,0-8.24,3.691-8.24,8.242s3.689,8.242,8.24,8.242 c4.553,0,8.242-3.691,8.242-8.242S85.682,41.069,81.129,41.069L81.129,41.069z M30.556,41.069c-4.552,0-8.242,3.691-8.242,8.242 s3.69,8.242,8.242,8.242c4.551,0,8.242-3.691,8.242-8.242S35.107,41.069,30.556,41.069L30.556,41.069z M55.843,41.069 c-4.551,0-8.242,3.691-8.242,8.242s3.691,8.242,8.242,8.242c4.552,0,8.241-3.691,8.241-8.242S60.395,41.069,55.843,41.069 L55.843,41.069z M27.789,0h56.108h0.006v0.02c7.658,0.002,14.604,3.119,19.623,8.139l-0.01,0.01 c5.027,5.033,8.148,11.977,8.15,19.618h0.02v0.003h-0.02v40.079h0.02v0.004h-0.02c-0.004,8.17-5.68,15.289-13.24,20.261 c-7.041,4.629-15.932,7.504-23.104,7.505v0.021H75.32v-0.021h-0.576c-5.064,6.309-10.941,11.694-17.674,16.115 c-7.443,4.888-15.864,8.571-25.31,10.987l-0.004-0.016c-1.778,0.45-3.737-0.085-5.036-1.552c-1.852-2.093-1.656-5.292,0.437-7.144 c4.118-3.651,6.849-7.451,8.826-11.434c1.101-2.219,1.986-4.534,2.755-6.938h-10.95h-0.007v-0.021 c-7.656-0.002-14.602-3.119-19.622-8.139C3.138,82.478,0.021,75.53,0.02,67.871H0v-0.003h0.02V27.79H0v-0.007h0.02 C0.021,20.282,3.023,13.46,7.878,8.464C7.967,8.36,8.059,8.258,8.157,8.16c5.021-5.021,11.968-8.14,19.628-8.141V0H27.789L27.789,0 z"/></g></svg>
                                             </div>
 
                                         </td>
@@ -272,44 +272,40 @@
         </div>
     </div>
 
+
     <div id="popup" class="popup">
         <div class="popup-container">
             <span class="popup-close" id="popup-close">&times;</span>
-            <div style="margin-top: 30px">
-                <h3 style="font-weight: 900;color: #f38181;font-size: 30px">Edit Profile</h3>
-                <p>Update your personal information.</p>
-            </div>
-            <form id="update-form">
-                <input type="hidden" id="user-id">
-                <p>
-                    <label for="user-name">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path fill="#f38181" d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                            <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                        Name:
-                    </label>
-                    <input type="text" id="user-name" disabled>
-                </p>
-                <p>
-                    <label for="user-role">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path fill="#f38181" d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                            <rect width="20" height="14" x="2" y="6" rx="2"></rect>
-                        </svg>
-                        Role:</label>
-                    <select id="user-role">
-                        <option class="participant" value="participant">Participant</option>
-                        <option class="admin" value="admin">Admin</option>
-                        <option class="event_organizer" value="event_organizer">Event Organizer</option>
-                    </select>
-                </p>
-                <p style="text-align: right;margin-top: 60px">
-                    <button type="button" id="update-button">Update</button>
-                </p>
+            <h3 style="margin: 15px 0;font-weight: 600;font-size: 25px;">
+                <svg data-id="8" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 mr-2 inline-block"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg>
+                Send Email</h3>
+            <p style="margin-bottom: 12px">Fill out the form to send an email.</p>
+            <form id="send-message-form" action="{{ route('send.email') }}" method="POST">
+                @csrf
+                <input type="hidden" name="eventId" id="event-id">
+                <div style="display: flex;align-items: center;justify-content: space-around;margin: 15px 0;">
+                    <label for="message-subject">
+                        <svg data-id="18" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2 inline-block"><path d="M20 5H9l-7 7 7 7h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2Z"></path><line x1="18" x2="12" y1="9" y2="15"></line><line x1="12" x2="18" y1="9" y2="15"></line></svg>
+                        Subject:</label>
+                    <input style="border-radius: 8px;" name="subject" type="text" id="message-subject" required>
+                </div>
+                <div style="display: flex;align-items: center;justify-content: space-around;margin: 15px 0;">
+                    <label for="message-body">
+                        <svg data-id="22" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mr-2 inline-block"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>
+                        Message:</label>
+                    <textarea style="border-radius: 8px;" name="message" id="message-body" required></textarea>
+                </div>
+                <div style="width: 100%;text-align: right;color: #fff">
+
+                    <button type="submit" id="send-button" style="padding: 5px;background: #f38181;border-radius: 7px">Send</button>
+                </div>
             </form>
         </div>
     </div>
+
+
+
+
 </x-app-layout>
 
 
@@ -370,6 +366,23 @@
 
 
 
+    document.addEventListener('DOMContentLoaded', function() {
+        const sendMessageButtons = document.querySelectorAll('.send-message-button');
+        const popup = document.getElementById('popup');
+        const popupClose = document.getElementById('popup-close');
+
+        sendMessageButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const eventId = button.dataset.eventId;
+                document.getElementById('event-id').value = eventId;
+                popup.style.display = 'block';
+            });
+        });
+
+        popupClose.addEventListener('click', function() {
+            popup.style.display = 'none';
+        });
+    });
 
 </script>
 

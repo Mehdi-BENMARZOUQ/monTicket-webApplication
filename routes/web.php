@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MyTicketController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\CheckoutController;
@@ -106,9 +107,7 @@ Route::middleware(['auth:sanctum', 'verified','Admin'])->group(function () {
     Route::get('/userList', [UserController::class, 'displayList'])->name('users.list');
     Route::get('/eventsList', [EventController::class, 'displayList'])->name('events.list');
 
-    Route::get('/dashboard', function () {
-        return view('Dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
 });
 
@@ -135,7 +134,7 @@ Route::get('/scan-barcode', function () {
 })->name('barcode.scan');
 
 Route::get('/orders', [CheckoutController::class, 'showOrdersSummary'])->name('orders.summary');
-
+Route::post('/send-email', [App\Http\Controllers\MessageController::class, 'sendEmail'])->name('send.email');
 
 // Email verification routes (using Jetstream)
 /*Route::middleware(['auth:sanctum', 'verified'])->get('/', function () {
