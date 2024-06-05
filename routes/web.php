@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\MyTicketController;
 use App\Http\Controllers\QrCodeController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\EventCategoryController;
@@ -50,6 +51,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::post('/favorites/{event}', [FavoriteController::class, 'store'])->name('favorites.store');
     Route::delete('/favorites/{event}', [FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
+    Route::get('/my-tickets', [CheckoutController::class, 'showOrders'])->name('myTickets.index');
+
+    Route::get('/events/{eventId}/users', [EventController::class, 'usersByEvent'])->name('events.users');
+    Route::get('/scan-barcode/{id}', [CheckoutController::class, 'showBuyers'])->name('events.buyers');
+
+    Route::post('/verify-qr-codes', [CheckoutController::class, 'verifyQrCode'])->name('verify.qr_codes');
 
 
 });
@@ -61,6 +68,11 @@ Route::delete('/users/{id}', [UserController::class, 'delete'])->name('users.del
 
 
 
+// routes/web.php
+
+Route::get('/confirmation-done', function () {
+    return view('thanks');
+})->name('thanks');
 
 
 
@@ -109,7 +121,11 @@ Route::get('/checkout/payment/{id}', [CheckoutController::class, 'payment'])->na
 Route::post('/checkout/pay', [CheckoutController::class, 'pay'])->name('checkout.pay');
 Route::get('/checkout/confirmation/{id}', [CheckoutController::class, 'confirmation'])->name('checkout.confirmation');
 Route::post('/checkout/purchase/{id}', [CheckoutController::class, 'processPayment'])->name('checkout.processPayment');
-Route::get('/ticket/{checkout_id}/{ticket_number}', [TicketController::class, 'show'])->name('ticket.show');
+
+
+
+Route::get('ticket/show/{code}', [TicketController::class, 'show'])->name('ticket.show');
+
 Route::post('/validate-coupon', [CouponController::class, 'validateCoupon'])->name('validate.coupon');
 
 // routes/web.php

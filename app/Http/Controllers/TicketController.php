@@ -86,6 +86,7 @@ class TicketController extends Controller
     {
         $request->validate([
             'event_id' => 'required|exists:events,id',
+            'user_id' => 'required|exists:users,id',
             'type.*' => 'required|string|max:255',
             'price.*' => 'required|numeric',
             'quantity_available.*' => 'required|integer|min:0',
@@ -94,6 +95,7 @@ class TicketController extends Controller
         foreach ($request->type as $index => $type) {
 
             Ticket::create([
+                'user_id' => $request->user_id,
                 'event_id' => $request->event_id,
                 'type' => $type,
                 'price' => $request->price[$index],

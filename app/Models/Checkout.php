@@ -10,7 +10,7 @@ class Checkout extends Model
     use HasFactory;
 
     protected $fillable = [
-        'event_id', 'ticket_id', 'coupon_code','quantity', 'total_amount','qr_code_path'
+        'user_id','event_id', 'ticket_id', 'coupon_code','quantity', 'total_amount',
     ];
 
     public function event()
@@ -21,6 +21,9 @@ class Checkout extends Model
     public function ticket()
     {
         return $this->belongsTo(Ticket::class, 'ticket_id');
+    }public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 }

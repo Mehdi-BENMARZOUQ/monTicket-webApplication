@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('checkouts', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('event_id')->constrained()->onDelete('cascade');
             $table->foreignId('ticket_id')->constrained()->onDelete('cascade');
             $table->string('coupon_code')->nullable();
             $table->integer('quantity');
             $table->decimal('total_amount', 10, 2);
-            $table->string('qr_code_path')->nullable();
+
             $table->timestamps();
         });
     }

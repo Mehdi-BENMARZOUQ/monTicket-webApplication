@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Checkout;
 use App\Models\Event;
 use App\Models\EventCategory;
 use App\Models\Ticket;
@@ -13,11 +14,34 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-
+use Endroid\QrCode\Builder\Builder;
 
 class EventController extends Controller
 {
 
+   /* public function scanBarcode($id)
+    {
+        $event = Event::with('tickets.user')->findOrFail($id);
+
+
+        // Generate QR codes for each ticket
+        foreach ($event->tickets as $ticket) {
+            $qrCode = Builder::create()
+                ->data($ticket->id)
+                ->size(100)
+                ->build();
+
+            // Save the QR code image as a base64 string in the ticket object
+            $ticket->qrCode = base64_encode($qrCode->getString());
+        }
+        return view('barcode.scan-qrlist', compact('event'));
+    }*/
+
+    public function usersByEvent($eventId)
+    {
+        $event = Event::with(['tickets.user'])->findOrFail($eventId);
+        return view('barcode.scan-qrlist', compact('event'));
+    }
     public function displayList(Request $request)
     {
         $events = Event::paginate(7);

@@ -1,5 +1,3 @@
-
-
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
 
@@ -13,16 +11,15 @@
         </div>
     @endif
 
-     {{--   @if (Auth::user()->role == 'event_organizer'|| AUTH::user->role == 'admin')
-            <a href="{{ route('events.create') }}" class="text-sm text-gray-700 underline d-flex">
-                <p>
-                    Create event
-                </p>
 
-            </a>
-        @endif--}}
+    <h3 style="font-size: 35px;
+    font-weight: 700;
+    text-align: center;
+    margin-top: 25px;
+    color: #4d4d4d;">
 
-    Add Organization Details
+        Add Organization Details
+    </h3>
 
     <form wire:submit.prevent="switchToOrganizer" enctype="multipart/form-data">
 
@@ -30,11 +27,7 @@
         <div class="mb-4">
             <x-label for="organization_logo" value="{{ __('Organization Logo') }}" />
             <div class="mt-1 block w-full">
-                @if ($existing_logo)
-                    <img src="{{ Storage::url($existing_logo) }}" alt="Organization Logo" class="h-20 w-20 object-cover mb-2">
-                @else
-                    <img src="{{ asset('default-logo.png') }}" alt="Default Logo" class="h-20 w-20 object-cover mb-2">
-                @endif
+                <img id="organization-logo-preview"  class="">
             </div>
             <x-input id="organization_logo" type="file" class="mt-1 block w-full" wire:model="organization_logo" />
             <x-input-error for="organization_logo" class="mt-2" />
@@ -53,4 +46,19 @@
     </form>
 
 
+    <script>
+        const organizationLogoInput = document.getElementById('organization_logo');
+        const organizationLogoPreview = document.getElementById('organization-logo-preview');
+
+        organizationLogoInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                organizationLogoPreview.src = event.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
 </div>

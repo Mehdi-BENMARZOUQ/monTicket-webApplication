@@ -87,6 +87,7 @@
                 @if($event)
                     <input type="hidden" name="event_id" value="{{ $event->id }}">
                 @endif
+                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 <div>
                     <label for="type-0">Ticket Type</label>
                     <input type="text" id="type-0" value="{{ old('type.0') }}" name="type[]" required>

@@ -1,5 +1,6 @@
 @include('events.navbar')
-@include('functions')
+
+
 
 <style>
     .delete-btn:focus {
@@ -270,6 +271,7 @@
                                         <th style="text-transform: uppercase;text-align: center">Start and End</th>
                                         <th style="text-transform: uppercase;text-align: center">Show Tickets</th>
                                         <th style="text-transform: uppercase;text-align: center">Actions</th>
+                                        <th style="text-transform: uppercase;text-align: center">Check Users</th>
                                         {{--<th style="text-transform: uppercase">send message</th>--}}
                                     </tr>
                                     </thead>
@@ -278,7 +280,7 @@
                                         <tr>
                                             <td style="text-align: center" class="id">{{ $event->id }}</td>
                                             <td style="text-align: center">{{ $event->title }} </td>
-                                            <td style="text-align: center">{{ wrapDescription($event->description, 19, 2) }}</td>
+                                            <td style="text-align: center">{{ $event->description, 19, 2 }}</td>
                                             <td style="color: #f38181;font-weight: 600;text-align: center">{{ $event->category->name}}</td>
                                             <td style="text-align: center">{{ $event->venue }}</td>
                                             <td style="text-align: center">{{ date('d-M-Y',strtotime($event->start_datetime)) }}
@@ -308,6 +310,8 @@
                                                     </button>
                                                 </form>
                                             </td>
+
+                                            <td><a href="{{route('events.buyers',['id' => $event->id])}}">Check</a></td>
                                         </tr>
                                     @endforeach
 

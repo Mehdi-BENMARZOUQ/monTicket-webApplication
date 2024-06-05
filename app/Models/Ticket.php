@@ -11,6 +11,7 @@ class Ticket extends Model
 
     protected $fillable = [
         'event_id',
+        'user_id',
         'type',
         'price',
         'quantity_available',
@@ -20,5 +21,9 @@ class Ticket extends Model
     public function event()
     {
         return $this->belongsTo(Event::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -1,42 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Ticket Confirmation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .qr-code {
-            text-align: center;
-            margin-top: 20px;
-        }
-        .ticket {
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            padding: 10px;
-        }
-    </style>
+    <title>Tickets</title>
 </head>
 <body>
-<div class="header">
-    <h1>Ticket Confirmation</h1>
-    <p>Event: {{ $checkout->event->title }}</p>
-    <p>Date: {{ date('d-M-Y', strtotime($checkout->event->start_datetime)) }} to {{ date('d-M-Y', strtotime($checkout->event->end_datetime)) }}</p>
-    <p>Venue: {{ $checkout->event->venue }}</p>
-</div>
-
-@foreach ($tickets as $index => $ticketPath)
-    <div class="ticket">
-        <p>Ticket {{ $index + 1 }} of {{ $checkout->quantity }}</p>
-        <div class="qr-code">
-            <img src="{{ public_path('storage/' . $ticketPath) }}" alt="QR Code">
-        </div>
+<h1 style='color:#4d4d4d;font-family: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";text-align: center;font-weight: 700'>Your Tickets</h1>
+@foreach ($tickets as $ticket)
+    <div>
+        <h2>Event: {{ $ticket->event->title }}</h2>
+        <p>Ticket ID: {{ $ticket->ticket->id }}</p>
+        <p>Unique Code: {{ $ticket->unique_code }}</p>
+        <img src="{{ public_path('storage/' . $ticket->qr_code_path) }}" alt="QR Code">
     </div>
+    <hr>
 @endforeach
 </body>
 </html>

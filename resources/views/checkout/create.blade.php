@@ -81,6 +81,7 @@
             <form action="{{ route('checkout.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="event_id" value="{{ $event->id }}">
+                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                 <div class="row">
                     <div class="col-4">
                         <label for="ticket_id" style="margin: 10px 0;"><strong>Ticket Type</strong></label><br>
@@ -140,8 +141,7 @@
                 padding: 0.5rem 1rem;
                 border-radius: 0.25rem;
                 margin-top: 20px;
-                transition: background-color 0.3s ease;"
-                >Proceed to Payment</button>
+                transition: background-color 0.3s ease;">Proceed to Payment</button>
             </form>
         </div>
     </div>

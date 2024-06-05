@@ -10,8 +10,7 @@ class QrCodeController extends Controller
     {
         $qrCodeContent = $request->input('qr_code');
 
-        // Extract the checkout ID from the QR code content
-        // Assuming the QR code content is the URL that contains the checkout ID
+
         $checkoutId = basename(parse_url($qrCodeContent, PHP_URL_PATH));
 
         $checkout = Checkout::find($checkoutId);
@@ -20,7 +19,7 @@ class QrCodeController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'QR code is valid',
-                'event' => $checkout->event->name,
+                'event' => $checkout->event->title,
                 'ticket_type' => $checkout->ticket->type,
                 'total_amount' => $checkout->total_amount,
                 'is_valid' => true
@@ -32,5 +31,9 @@ class QrCodeController extends Controller
                 'is_valid' => false
             ]);
         }
+
+
     }
+
+
 }
